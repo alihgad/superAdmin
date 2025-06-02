@@ -3,10 +3,15 @@ import mongoose from "mongoose";
 
 
 
-const homePageSchema = new mongoose.Schema({
-    section : {
+const sectionSchema = new mongoose.Schema({
+    page:{
         type : String,
         required : true
+    },
+    section : {
+        type : String,
+        required : true,
+        unique : true
     },
     title : {
         type : String
@@ -27,6 +32,6 @@ const homePageSchema = new mongoose.Schema({
 
 });
 
-const homePageModel = mongoose.model("homePage", homePageSchema);
+const homePageModel = mongoose.models.section || mongoose.model("section", sectionSchema);
 
 export default homePageModel;

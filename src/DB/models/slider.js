@@ -3,7 +3,11 @@ import mongoose from "mongoose";
 
 
 
-const homePageSliderSchema = new mongoose.Schema({
+const SliderSchema = new mongoose.Schema({
+    page:{
+        type : String,
+        required : true
+    },
     section : {
         type : String,
         required : true
@@ -27,6 +31,6 @@ const homePageSliderSchema = new mongoose.Schema({
 
 });
 
-const homePageSliderModel = mongoose.model("homePageSlider", homePageSliderSchema);
+const SliderModel = mongoose.models.Slider || mongoose.model("Slider", SliderSchema);
 
-export default homePageSliderModel;
+export default SliderModel;

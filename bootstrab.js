@@ -1,5 +1,6 @@
-import homeRouter from "./src/moduels/homePage/homrPage.controller.js";
+import sectionRouter from "./src/moduels/section/section.controller.js";
 import userRouter from "./src/moduels/users/users.controller.js";
+import planRouter from "./src/moduels/plans/plan.controller.js";
 
 
 export default (app) => {
@@ -11,8 +12,9 @@ export default (app) => {
     });
 
 
-    app.use("/home", homeRouter);
     app.use("/user", userRouter);
+    app.use("/plan", planRouter);
+    app.use("/", sectionRouter);
 
 
 
