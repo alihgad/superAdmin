@@ -32,6 +32,6 @@ const sectionSchema = new mongoose.Schema({
 
 });
 
-const homePageModel = mongoose.models.section || mongoose.model("section", sectionSchema);
+const sectionModel = mongoose.models.section || mongoose.model("section", sectionSchema);
 
-export default homePageModel;
+export default sectionModel;
