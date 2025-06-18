@@ -4,6 +4,10 @@ import mongoose from "mongoose";
 
 
 const helpSchema = new mongoose.Schema({
+    article:{
+        type : String,
+        required: true
+    },
     title: {
         type: String
     },

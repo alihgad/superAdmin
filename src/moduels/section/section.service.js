@@ -173,6 +173,24 @@ export let createSlider = async (req, res, next) => {
     return res.status(200).json({ message: `${newSlider.section} slider added successfully`, newSlider })
 }
 
+export let getSlider = async (req, res, next) => {
+    let slider = await SliderModel.findOne({ page: req.params.page, section: req.params.section })
+    if (!slider) {
+        return next(new Error("section not found"))
+    }
+
+    return res.status(200).json({ slider })
+}
+
+export let getAllSlider = async (req, res, next) => {
+    let slider = await SliderModel.find({ page: req.params.page })
+    if (!slider) {
+        return next(new Error("section not found"))
+    }
+
+    return res.status(200).json({ slider })
+}
+
 export let addToSlider = async (req, res, next) => {
     let slider = await SliderModel.findOne({ page: req.params.page, section: req.params.section })
     if (!slider) {
@@ -199,5 +217,61 @@ export let addToSlider = async (req, res, next) => {
     })
     await slider.save()
     return res.status(200).json({ message: `${slider.section} slider added successfully`, slider })
+}
+
+export let updateSlider = async (req, res, next) => {
+    let slider = await SliderModel.findOne({ page: req.params.page, section: req.params.section })
+    if (!slider) {
+        return next(new Error("section not found"))
+    }
+
+    
+    const { title, content } = req.body;
+    let image = req.file;
+
+    if (!title && !content && !image) {
+        return next(new Error("All fields are required"))
+    }
+
+    let target = slider.slides.find((slide) => slide._id == req.params.sliderId)
+    if (!target) {
+        return next(new Error("wrong slider id"))
+    }
+
+    if (title) {
+        target.title = title
+    }
+    if (content) {
+        target.content = content
+    }
+    if (image) {
+        await cloudinary.uploader.destroy(target.image.public_id)
+        let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
+            folder: `superAdmin/${slider.page}/${slider.section}/slider`
+        })
+        target.image = {
+            secure_url,
+            public_id
+        }
+    }
+    await slider.save()
+    return res.status(200).json({ message: `${slider.section} slider updated successfully`, slider })
+}
+
+export let deleteSlider = async (req, res, next) => {
+    let slider = await SliderModel.findOne({ page: req.params.page, section: req.params.section })
+    if (!slider) {
+        return next(new Error("section not found"))
+    }
+
+    let target = slider.slides.find((slide) => slide._id == req.params.sliderId)
+    if (!target) {
+        return next(new Error("wrong slider id"))
+    }
+
+    await cloudinary.uploader.destroy(target.image.public_id)
+    slider.slides = slider.slides.filter((slide) => slide._id != req.params.sliderId)
+    await slider.save()
+    return res.status(200).json({ message: `${slider.section} slider deleted successfully`, slider })
 }
 
