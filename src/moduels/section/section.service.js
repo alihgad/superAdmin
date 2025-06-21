@@ -106,7 +106,11 @@ export const addSection = async (req, res, next) => {
 
 
 export const getAllSections = async (req, res, next) => {
-    let sections = await sectionModel.find({ page: req.params.page })
+    let skip = 0
+    if(req.query.page){
+        skip = (req.query.page - 1) * 5
+    }
+    let sections = await sectionModel.find({ page: req.params.page }).limit(5).skip(skip)
     if (!sections) {
         return next(new Error("sections not found"))
     }
