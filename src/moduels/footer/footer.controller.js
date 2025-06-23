@@ -1,15 +1,16 @@
 import { Router } from "express";
-import asyncHandler from "../../middelWares/asyncHandler.js";
-import { addLink, addSocial, deleteImage, deleteLink, getAllLinks, updateImage, updateLink, updateSocial } from "./footer.service.js";
+import asyncHandler from "../../utils/asyncHandler.js";
+import { addLink, addSocial, deleteImage, deleteLink, getAllCatLinks, getAllLinks, updateImage, updateLink, updateSocial } from "./footer.service.js";
 import upload from "../../middelWares/multer.js";
 
 
 let footerRouter = Router()
 
-footerRouter.post("/",asyncHandler(addLink))
+footerRouter.post("/:category",asyncHandler(addLink))
 footerRouter.put("/:id",asyncHandler(updateLink))
 footerRouter.delete("/:id",asyncHandler(deleteLink))
 footerRouter.get("/", asyncHandler(getAllLinks)) 
+footerRouter.get("/:category", asyncHandler(getAllCatLinks)) 
 
 footerRouter.post("/social", upload.single("image") , asyncHandler(addSocial)) 
 footerRouter.put("/social/:id" , asyncHandler(updateSocial)) 

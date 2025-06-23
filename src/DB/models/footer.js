@@ -4,26 +4,37 @@ import mongoose from "mongoose";
 
 
 const footerSchema = new mongoose.Schema({
-    
-    category:{
+
+    arabic: {
+        title: {
+            type: String,
+            required: true,
+            trim: true,
+            lowercase: true,
+            unique: true
+        }
+    },
+    english: {
+        title: {
+            type: String,
+            required: true,
+            trim: true,
+            lowercase: true,
+            unique: true
+        }
+    },
+    link: {
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true
+    }, 
+    category: {
         type: String,
         required: true,
         trim: true,
         lowercase: true
     },
-    title:{
-        type: String,
-        required: true,
-        trim: true,
-        lowercase: true,
-        unique: true
-    },
-    link:{
-        type: String,
-        required: true,
-        trim: true,
-        lowercase: true
-    }
 
 });
 

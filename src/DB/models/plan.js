@@ -8,22 +8,43 @@ const planSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    description: {
-        type: String,
-        required: true
+    arabic: {
+        description: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true,
+            lowercase: true
+        },
+        features: [
+            {
+                type: String
+            }
+        ]
     },
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        lowercase: true
-    },
-    features: [
-        {
-            type : String
-        }
-    ]
+    english: {
+        description: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true,
+            lowercase: true
+        },
+        features: [
+            {
+                type: String
+            }
+        ]
+    }
+
 
 });
 

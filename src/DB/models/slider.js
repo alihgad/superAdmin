@@ -4,27 +4,39 @@ import mongoose from "mongoose";
 
 
 const SliderSchema = new mongoose.Schema({
-    page:{
-        type : String,
-        required : true
+    page: {
+        type: String,
+        required: true
     },
-    section : {
-        type : String,
-        required : true
+    section: {
+        type: String,
+        required: true
     },
 
-    slides:[
+    slides: [
         {
-            title : {
-                type : String,
-                required : true
+            arabic: {
+                title: {
+                    type: String,
+                    required: true
+                },
+                content: {
+                    type: String
+                },
             },
-            content : {
-                type : String
-            },
-            image : {
-                public_id : String,
-                secure_url : String
+            english: {
+                title: {
+                    type: String,
+                    required: true
+                },
+                content: {
+                    type: String
+                },
+            }
+            ,
+            image: {
+                public_id: String,
+                secure_url: String
             }
         }
     ]

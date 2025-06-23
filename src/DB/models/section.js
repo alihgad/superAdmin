@@ -4,28 +4,41 @@ import mongoose from "mongoose";
 
 
 const sectionSchema = new mongoose.Schema({
-    page:{
-        type : String,
-        required : true
+    page: {
+        type: String,
+        required: true
     },
-    section : {
-        type : String,
-        required : true,
-        unique : true
+    section: {
+        type: String,
+        required: true,
+        unique: true
     },
-    title : {
-        type : String
+
+    arabic: {
+        title: {
+            type: String
+        },
+        content: {
+            type: String
+        }
     },
-    content : {
-        type : String
-    },
-    images : [
+    english: {
+        title: {
+            type: String
+        },
+        content: {
+            type: String
+        }
+    }
+
+    ,
+    images: [
         {
-            public_id : {
-                type : String
+            public_id: {
+                type: String
             },
-            secure_url : {
-                type : String
+            secure_url: {
+                type: String
             }
         }
     ]

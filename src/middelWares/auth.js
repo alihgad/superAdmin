@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export default (req, res, next) => {
+export default (roles=[])=>(req, res, next) => {
 
     if (!req.headers.authorization) {
         return next(new Error("Unauthorized"))
@@ -16,6 +16,10 @@ export default (req, res, next) => {
 
 
     req.userId = decoded.id
+
+    if (roles.length > 0 && !roles.includes(decoded.role)) {
+        return next(new Error("Unauthorized"))
+    }
 
     next()
 }

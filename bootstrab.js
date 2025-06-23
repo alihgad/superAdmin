@@ -1,5 +1,5 @@
 import sectionRouter from "./src/moduels/section/section.controller.js";
-import userRouter from "./src/moduels/users/users.controller.js";
+
 import planRouter from "./src/moduels/plans/plan.controller.js";
 import helpRouter from "./src/moduels/help/help.controller.js";
 import footerRouter from "./src/moduels/footer/footer.controller.js";
@@ -14,7 +14,7 @@ export default (app) => {
     });
 
 
-    app.use("/user", userRouter);
+
     app.use("/plan", planRouter);
     app.use("/section", sectionRouter);
     app.use("/help", helpRouter);

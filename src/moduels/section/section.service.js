@@ -1,4 +1,4 @@
-import cloudinary from "../../middelWares/cloudinary.js"
+import { cloudinaryUpload as cloudinary } from "../../middelWares/multer.js"
 import sectionModel from "../../DB/models/section.js"
 import SliderModel from "../../DB/models/slider.js"
 
@@ -60,45 +60,51 @@ export const removeImageFromSection = async (req, res, next) => {
 
 
 export const addSection = async (req, res, next) => {
-    const { content, title, page } = req.body;
-    let sectionExists = await sectionModel.findOne({ section: req.params.section, title, page: req.params.page })
+    const { arabic, english } = req.body;
+    let sectionExists = await sectionModel.findOne({ section: req.params.section, title: english.title, page: req.params.page })
     if (sectionExists) {
         return next(new Error("data already exists"))
     }
     const images = req.files;
 
-    if (!title || !content) {
-        return next(new Error("All fields are required title  , content"))
+    if (!arabic.title || !arabic.content || !english.title || !english.content) {
+        return next(new Error("All fields are required title  , content in arabic and english"))
     }
 
     if (images.length == 0 && !content) {
         return next(new Error("One field at least required content or images"))
     }
 
-
-
-    let section = new sectionModel({
-        section: req.params.section,
-        page: req.params.page,
-        title: title,
-        content: content,
-        images: []
-    })
-
+    let imagesData = []
     if (images) {
         for (const image of images) {
             let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
                 folder: `superAdmin/${req.params.page}/${req.params.section}`
             })
-            section.images.push({
+            imagesData.push({
                 public_id,
                 secure_url: secure_url
             })
         }
-
-
     }
-    await section.save()
+
+    let section = await sectionModel.create({
+        page : req.params.page,
+        section : req.params.section,
+        arabic: {
+            title: arabic.title.trim(),
+            content: arabic.content.trim()
+        },
+        english: {
+            title: english.title.trim(),
+            content: english.content.trim()
+        }
+        ,
+        images: imagesData
+    })
+
+    console.log(section)
+    
 
     return res.status(200).json({ message: `${section.section} section added successfully` })
 
@@ -107,7 +113,7 @@ export const addSection = async (req, res, next) => {
 
 export const getAllSections = async (req, res, next) => {
     let skip = 0
-    if(req.query.page){
+    if (req.query.page) {
         skip = (req.query.page - 1) * 5
     }
     let sections = await sectionModel.find({ page: req.params.page }).limit(5).skip(skip)
@@ -229,7 +235,7 @@ export let updateSlider = async (req, res, next) => {
         return next(new Error("section not found"))
     }
 
-    
+
     const { title, content } = req.body;
     let image = req.file;
 

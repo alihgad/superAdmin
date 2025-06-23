@@ -1,20 +1,25 @@
 import helpModel from "../../DB/models/help.js";
-import cloudinary from "../../middelWares/cloudinary.js";
+import {cloudinaryUpload as cloudinary} from "../../middelWares/multer.js";
 
 export const addArticle = async (req, res, next) => {
-    let { article, title, content, steps } = req.body;
+    let { article, arabic, english } = req.body;
     console.log(req.files);
 
 
 
-    if (!article || !title || !content || !steps) {
+    if (!article) {
         return res.status(400).json({
-            message: "All fields are required",
-            fields: ["article", "title", "content", "steps"]
+            message: "Article field are required",
         });
     }
 
-    if (req.files.image.length === 0 || req.files.vedio.length === 0) {
+    if(!arabic.title || !english.title || !arabic.content || !english.content ) {
+        return res.status(400).json({
+            message: "All fields are required",
+        });
+    }
+
+    if (req?.files?.image?.length === 0 || req?.files?.vedio?.length === 0) {
         return next(new Error("Image and video are required"), {
             statusCode: 400,
             message: "Image and video are required"
@@ -129,12 +134,7 @@ export const getArticle = async (req, res, next) => {
     }
 
     articleName = articleName.toLowerCase().trim();
-    if (articleName.length < 3) {
-        return next(new Error("Article name must be at least 3 characters long"), {
-            statusCode: 400,
-            message: "Article name must be at least 3 characters long"
-        });
-    }
+    
 
 
     let article = await helpModel.findOne({ article: articleName }).select("-__v -createdAt -updatedAt");
@@ -153,44 +153,13 @@ export const getArticle = async (req, res, next) => {
 
 export const updateArticle = async (req, res, next) => {
     let { articleName } = req.params;
-    if (!articleName || typeof articleName !== "string") {
-        return next(new Error("Article name is required"), {
-            statusCode: 400,
-            message: "Article name is required"
-        });
-    }
+    let { arabic, english } = req.body;
+    
+
+
 
     articleName = articleName.toLowerCase().trim();
-    let { title, content, steps } = req.body;
-    if (!title && !content && !steps) {
-        return next(new Error("All fields are required"), {
-            statusCode: 400,
-            message: "one of the fields are required"
-        });
-    }
-    if (steps && typeof steps === "string") {
-        steps = steps.split(",");
-        steps = steps.map(step => step.trim());
-    }
-    if (steps && !Array.isArray(steps)) {
-        return next(new Error("Steps must be an array"), {
-            statusCode: 400,
-            message: "Steps must be an array"
-        });
-    }
-    if (title && typeof title !== "string" || content && typeof content !== "string") {
-        return next(new Error(" must be strings"), {
-            statusCode: 400,
-            message: " must be strings"
-        });
-    }
-    if (title?.length < 3 || content?.length < 3) {
-        return next(new Error(" title and content must be at least 3 characters long"), {
-            statusCode: 400,
-            message: " title and content must be at least 3 characters long"
-        });
-    }
-
+    
     let articleToUpdate = await helpModel.findOne({ article: articleName });
     if (!articleToUpdate) {
         return next(new Error("Article not found"), {
@@ -199,9 +168,15 @@ export const updateArticle = async (req, res, next) => {
         });
     }
 
-    articleToUpdate.title = title ? title : articleToUpdate.title;
-    articleToUpdate.content = content ? content : articleToUpdate.content;
-    articleToUpdate.steps = steps ? steps : articleToUpdate.steps;
+    articleToUpdate.arabic.title = arabic?.title ? arabic.title : articleToUpdate.arabic.title;
+    articleToUpdate.arabic.content = arabic?.content ? arabic.content : articleToUpdate.arabic.content;
+    articleToUpdate.arabic.steps = arabic?.steps ? arabic.steps : articleToUpdate.arabic.steps;
+
+    articleToUpdate.english.title = english?.title ? english.title : articleToUpdate.english.title;
+    articleToUpdate.english.content = english?.content ? english.content : articleToUpdate.english.content;
+    articleToUpdate.english.steps = english?.steps ? english.steps : articleToUpdate.english.steps;
+
+    
     await articleToUpdate.save();
     return res.status(200).json({
         message: "Article updated successfully",
