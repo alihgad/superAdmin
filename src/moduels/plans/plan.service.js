@@ -6,7 +6,7 @@ export const createPlan = async (req, res, next) => {
         return next(new Error("all fields are required"))
     }
 
-    if (typeof name !== "string" || typeof description !== "string" || typeof features !== "string") {
+    if (typeof name !== "string" || typeof description !== "string" ) {
         return next(new Error("name must be a string"))
     }
 
@@ -14,7 +14,7 @@ export const createPlan = async (req, res, next) => {
         return next(new Error("price must be a number and greater than or equal to 0"))
     }
 
-    if(!features.includes(",")){
+    if(!features.includes(",") || typeof features !== "string"){
         return next(new Error("features must be a string with , as separator"))
     }
 
