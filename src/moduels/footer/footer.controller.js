@@ -1,21 +1,22 @@
 import { Router } from "express";
 import asyncHandler from "../../utils/asyncHandler.js";
-import { addLink, addSocial, deleteImage, deleteLink, getAllCatLinks, getAllLinks, updateImage, updateLink, updateSocial } from "./footer.service.js";
+import * as fs from "./footer.service.js";
 import upload from "../../middelWares/multer.js";
+import validate from "../../middelWares/validator.js";
+import * as schemas from "./footer.schema.js";
 
 
 let footerRouter = Router()
 
-footerRouter.post("/:category",asyncHandler(addLink))
-footerRouter.put("/:id",asyncHandler(updateLink))
-footerRouter.delete("/:id",asyncHandler(deleteLink))
-footerRouter.get("/", asyncHandler(getAllLinks)) 
-footerRouter.get("/:category", asyncHandler(getAllCatLinks)) 
+footerRouter.post("/:category", validate(schemas.addLinkSchema) ,asyncHandler(fs.addLink))
+footerRouter.put("/:id", validate(schemas.updateLinkSchema),asyncHandler(fs.updateLink))
+footerRouter.delete("/:id",validate(schemas.deleteLinkSchema),asyncHandler(fs.deleteLink))
+footerRouter.get("/", asyncHandler(fs.getAllLinks)) 
+footerRouter.get("/:category", validate(schemas.getAllCatLinksSchema), asyncHandler(fs.getAllCatLinks))     
 
-footerRouter.post("/social", upload.single("image") , asyncHandler(addSocial)) 
-footerRouter.put("/social/:id" , asyncHandler(updateSocial)) 
-footerRouter.patch("/social/:id", upload.single("image") , asyncHandler(updateImage)) 
-footerRouter.delete("/social/:id",  asyncHandler(deleteImage)) 
+footerRouter.post("/social",validate(schemas.addSocialSchema), asyncHandler(fs.addSocial)) 
+footerRouter.put("/social/:id" ,validate(schemas.updateSocialSchema), asyncHandler(fs.updateSocial)) 
+footerRouter.delete("/social/:id", validate(schemas.deleteSocialMedia),  asyncHandler(fs.deleteImage)) 
 
  
 

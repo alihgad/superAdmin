@@ -10,28 +10,20 @@ const socialSchema = new mongoose.Schema({
         lowercase: true,
         unique: true
     },
-    alt:{
+    icon: {
         type: String,
         required: true,
         trim: true,
         lowercase: true
     },
-    image: {
-        public_id: {
-            type: String,
-            required: true
-        },
-        secure_url: {
-            type: String,
-            required: true
-        }
-    },
-    display:{
+    display: {
         type: Boolean,
-        default: flase
+        default: false
     }
 
 });
+
+
 
 const socialModel = mongoose.models.social || mongoose.model("Social", socialSchema);
 
