@@ -93,28 +93,14 @@ export const updateLinkSchema = {
     }),
 
     params: Joi.object({
-        id: Joi.string()
-            .custom(objectIdValidator, 'ObjectId validation')
-            .required()
-            .messages({
-                'any.required': 'ID is required',
-                'any.invalid': 'Invalid ID format',
-                'string.base': 'ID must be a string',
-            }),
+        id: globalField.id,
     }),
 };
 
 
 export const deleteLinkSchema = {
     params: Joi.object({
-        id: Joi.string()
-            .custom(objectIdValidator, 'ObjectId validation')
-            .required()
-            .messages({
-                'any.required': 'ID is required',
-                'any.invalid': 'Invalid ID format',
-                'string.base': 'ID must be a string',
-            }),
+        id: globalField.id,
     }),
 };
 
@@ -136,15 +122,16 @@ export const getAllCatLinksSchema = {
 export const addSocialSchema = {
     body: Joi.object({
         link: Joi.string()
-            .uri()
-            .trim()
-            .lowercase()
-            .required()
-            .messages({
-                'string.base': 'Link must be a string',
-                'string.uri': 'Link must be a valid URL',
-                'any.required': 'Link is required'
-            }),
+            // .uri()
+            // .trim()
+            // .lowercase()
+            // .required()
+            // .messages({
+            //     'string.base': 'Link must be a string',
+            //     'string.uri': 'Link must be a valid URL',
+            //     'any.required': 'Link is required'
+            // }),
+            .required(),
 
         icon: Joi.string()
             .trim()
