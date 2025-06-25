@@ -96,10 +96,9 @@ export const getAllCatLinks = async (req, res) => {
 }
 
 
-
 export const addSocial = async (req, res) => {
     let { link, icon } = req.body;
-    
+
     let existingSocial = await socialModel.findOne({ icon: icon.toLowerCase().trim() });
     if (existingSocial) {
         return res.status(400).json({ message: "Social link already exists" });
@@ -115,7 +114,7 @@ export const addSocial = async (req, res) => {
 
 export const updateSocial = async (req, res) => {
     let { id } = req.params;
-    const { link, icon } = req.body;
+    const { link, icon, display } = req.body;
 
     let updatedSocial = await socialModel.findById(id);
     if (!updatedSocial) {
@@ -130,7 +129,7 @@ export const updateSocial = async (req, res) => {
         }
         updatedSocial.icon = icon.toLowerCase().trim();
     }
-    
+    if (display) updatedSocial.display = display;
 
     await updatedSocial.save();
     return res.status(200).json({ message: "Social link updated successfully", updatedSocial });

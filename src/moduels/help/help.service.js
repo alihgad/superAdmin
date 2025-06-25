@@ -1,5 +1,5 @@
 import helpModel from "../../DB/models/help.js";
-import {cloudinaryUpload as cloudinary} from "../../middelWares/multer.js";
+import { cloudinaryUpload as cloudinary } from "../../middelWares/multer.js";
 
 export const addArticle = async (req, res, next) => {
     let { article, arabic, english } = req.body;
@@ -13,7 +13,7 @@ export const addArticle = async (req, res, next) => {
         });
     }
 
-    if(!arabic.title || !english.title || !arabic.content || !english.content ) {
+    if (!arabic.title || !english.title || !arabic.content || !english.content) {
         return res.status(400).json({
             message: "All fields are required",
         });
@@ -134,7 +134,7 @@ export const getArticle = async (req, res, next) => {
     }
 
     articleName = articleName.toLowerCase().trim();
-    
+
 
 
     let article = await helpModel.findOne({ article: articleName }).select("-__v -createdAt -updatedAt");
@@ -154,12 +154,10 @@ export const getArticle = async (req, res, next) => {
 export const updateArticle = async (req, res, next) => {
     let { articleName } = req.params;
     let { arabic, english } = req.body;
-    
-
 
 
     articleName = articleName.toLowerCase().trim();
-    
+
     let articleToUpdate = await helpModel.findOne({ article: articleName });
     if (!articleToUpdate) {
         return next(new Error("Article not found"), {
@@ -176,119 +174,54 @@ export const updateArticle = async (req, res, next) => {
     articleToUpdate.english.content = english?.content ? english.content : articleToUpdate.english.content;
     articleToUpdate.english.steps = english?.steps ? english.steps : articleToUpdate.english.steps;
 
-    
+    if (req.files?.image?.length > 0) {
+        await cloudinary.uploader.destroy(articleToUpdate.image.public_id, {
+            resource_type: "image"
+        }).catch((error) => next(new Error("Image deletion failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }));
+
+        let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
+            folder: `superAdmin/help/articles/${articleName}`,
+            resource_type: "image"
+        }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }))
+
+        articleToUpdate.image = {
+            public_id: public_id,
+            secure_url: secure_url
+        }
+    }
+
+    if (req.files?.vedio?.length > 0) {
+        await cloudinary.uploader.destroy(articleToUpdate.vedio.public_id, {
+            resource_type: "vedio"
+        }).catch((error) => next(new Error("vedio deletion failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }));
+
+        let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
+            folder: `superAdmin/help/articles/${articleName}`,
+            resource_type: "vedio"
+        }).catch((error) => next(new Error("vedio upload failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }))
+
+        articleToUpdate.vedio = {
+            public_id: public_id,
+            secure_url: secure_url
+        }
+    }
+
+
     await articleToUpdate.save();
     return res.status(200).json({
         message: "Article updated successfully",
-        article: articleToUpdate
-    });
-}
-
-
-export const updateImage = async (req, res, next) => {
-    let { articleName } = req.params;
-    if (!articleName || typeof articleName !== "string") {
-        return next(new Error("Article name is required"), {
-            statusCode: 400,
-            message: "Article name is required"
-        });
-    }
-
-    if (!req.file) {
-        return next(new Error("Image is required"), {
-            statusCode: 400,
-            message: "Image is required"
-        });
-    }
-
-    articleName = articleName.toLowerCase().trim();
-
-    let articleToUpdate = await helpModel.findOne({ article: articleName });
-    if (!articleToUpdate) {
-        return next(new Error("Article not found"), {
-            statusCode: 404,
-            message: "Article not found"
-        });
-    }
-
-    await cloudinary.uploader.destroy(articleToUpdate.image.public_id, {
-        resource_type: "image"
-    }).catch((error) => next(new Error("Image deletion failed " + error.message + ""), {
-        statusCode: 500,
-        message: error.message
-    }));
-
-    let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
-        folder: `superAdmin/help/articles/${articleName}`,
-        resource_type: "image"
-    }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
-        statusCode: 500,
-        message: error.message
-    }))
-
-    
-
-    articleToUpdate.image = {
-        public_id: public_id,
-        secure_url: secure_url
-    }
-    await articleToUpdate.save();
-    return res.status(200).json({
-        message: "Image updated successfully",
-        article: articleToUpdate
-    });
-}
-
-export const updateVedio = async (req, res, next) => {
-    let { articleName } = req.params;
-    if (!articleName || typeof articleName !== "string") {
-        return next(new Error("Article name is required"), {
-            statusCode: 400,
-            message: "Article name is required"
-        });
-    }
-
-    if (!req.file) {
-        return next(new Error("vedio is required"), {
-            statusCode: 400,
-            message: "vedio is required"
-        });
-    }
-
-    articleName = articleName.toLowerCase().trim();
-
-    let articleToUpdate = await helpModel.findOne({ article: articleName });
-    if (!articleToUpdate) {
-        return next(new Error("Article not found"), {
-            statusCode: 404,
-            message: "Article not found"
-        });
-    }
-
-    await cloudinary.uploader.destroy(articleToUpdate.vedio.public_id, {
-        resource_type: "vedio"
-    }).catch((error) => next(new Error("vedio deletion failed " + error.message + ""), {
-        statusCode: 500,
-        message: error.message
-    }));
-
-    let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
-        folder: `superAdmin/help/articles/${articleName}`,
-        resource_type: "vedio"
-    }).catch((error) => next(new Error("vedio upload failed " + error.message + ""), {
-        statusCode: 500,
-        message: error.message
-    }))
-
-    
-
-    articleToUpdate.vedio = {
-        public_id: public_id,
-        secure_url: secure_url
-    }
-    await articleToUpdate.save();
-    return res.status(200).json({
-        message: "vedio updated successfully",
         article: articleToUpdate
     });
 }
@@ -332,5 +265,5 @@ export const deleteArticle = async (req, res, next) => {
         message: "Article deleted successfully"
     });
 }
-    
+
 

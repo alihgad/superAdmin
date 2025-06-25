@@ -2,7 +2,6 @@
 
 
 export default (schema) => (req, res, next) => {
-  console.log(req.params)
 
   if (req.body.arabic && typeof req.body.arabic === 'string') {
     req.body.arabic = JSON.parse(req.body.arabic)
