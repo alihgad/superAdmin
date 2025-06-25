@@ -18,7 +18,7 @@ const SliderSchema = new mongoose.Schema({
             arabic: {
                 title: {
                     type: String,
-                    required: true
+                    
                 },
                 content: {
                     type: String
@@ -27,7 +27,7 @@ const SliderSchema = new mongoose.Schema({
             english: {
                 title: {
                     type: String,
-                    required: true
+                    
                 },
                 content: {
                     type: String

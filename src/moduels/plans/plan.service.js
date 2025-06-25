@@ -2,11 +2,18 @@ import planModel from "../../DB/models/plan.js";
 
 export const createPlan = async (req, res, next) => {
 
-    let planExists = await planModel.findOne({ "english.name": req.body.english.name })
+    let planExists = await planModel.findOne({ "english.name": req.body.english.name.toLowerCase().trim() })
+    let arabicPlanExists = await planModel.findOne({ "arabic.name": req.body.arabic.name.toLowerCase().trim() })
 
-    if (planExists) {
-        return next(new Error("plan already exists"))
+    if (planExists ) {
+        return next(new Error("english plan name already exists"))
     }
+
+    if
+    (arabicPlanExists ) {
+        return next(new Error("arabic plan name already exists"))
+    }
+    req.body.price = Number(req.body.price)
     let plan = await planModel.create(req.body)
     return res.status(200).json({ message: "plan created successfully", plan })
 }
@@ -20,7 +27,7 @@ export const updatePlan = async (req, res, next) => {
     }
 
     if (english.name) {
-        let nameExsist = await planModel.findOne({ "english.name": english.name })
+        let nameExsist = await planModel.findOne({ "english.name": english.name.toLowerCase().trim() })
         if (nameExsist) {
             return next(new Error("plan name already exists"))
         }
@@ -28,14 +35,14 @@ export const updatePlan = async (req, res, next) => {
     }
 
     if (arabic.name) {
-        let nameExsist = await planModel.findOne({ "arabic.name": arabic.name })
+        let nameExsist = await planModel.findOne({ "arabic.name": arabic.name.toLowerCase().trim() })
         if (nameExsist) {
             return next(new Error("plan name already exists"))
         }
         plan.arabic.name = arabic.name
     }
 
-    plan.price = price ? price : plan.price
+    plan.price = price ? Number(price) : plan.price
     plan.english.description = english.description ? english.description : plan.english.description
     plan.arabic.description = arabic.description ? arabic.description : plan.arabic.description
     plan.english.features = english.features ? english.features : plan.english.features
