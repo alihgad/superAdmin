@@ -3,7 +3,7 @@ import sectionRouter from "./src/moduels/section/section.controller.js";
 import planRouter from "./src/moduels/plans/plan.controller.js";
 import helpRouter from "./src/moduels/help/help.controller.js";
 import footerRouter from "./src/moduels/footer/footer.controller.js";
-
+import testimonialRouter from "./src/moduels/testimonials/testimonial.controller.js";
 
 export default (app) => {
 
@@ -19,7 +19,7 @@ export default (app) => {
     app.use("/section", sectionRouter);
     app.use("/help", helpRouter);
     app.use("/footer", footerRouter);
-
+    app.use("/testimonials", testimonialRouter);
 
 
     app.listen(process.env.PORT || 3000, () => {

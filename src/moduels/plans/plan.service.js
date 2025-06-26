@@ -1,5 +1,6 @@
 import planModel from "../../DB/models/plan.js";
 
+
 export const createPlan = async (req, res, next) => {
 
     let planExists = await planModel.findOne({ "english.name": req.body.english.name.toLowerCase().trim() })
@@ -13,6 +14,7 @@ export const createPlan = async (req, res, next) => {
     (arabicPlanExists ) {
         return next(new Error("arabic plan name already exists"))
     }
+    
     req.body.price = Number(req.body.price)
     let plan = await planModel.create(req.body)
     return res.status(200).json({ message: "plan created successfully", plan })
@@ -73,3 +75,6 @@ export const getAllPlans = async (req, res, next) => {
 
     return res.status(200).json({ plans })
 }
+
+
+

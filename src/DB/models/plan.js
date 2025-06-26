@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 
@@ -43,7 +44,11 @@ const planSchema = new mongoose.Schema({
                 type: String
             }
         ]
-    }
+    },
+    activeFeatures:[{
+        type: Number,
+        required : true
+    }]
 
 
 });

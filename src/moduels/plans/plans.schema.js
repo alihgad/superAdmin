@@ -1,67 +1,5 @@
 import Joi from "joi";
 
-export const createPlanSchema = {
-    body: Joi.object({
-        price: Joi.number().min(0).required().messages({
-            "number.base": "Price must be a number",
-            "number.min": "Price must be greater than or equal to 0",
-            "any.required": "Price is required"
-        }),
-
-        arabic: Joi.object({
-            name: Joi.string().trim().lowercase().min(2).required().messages({
-                "string.base": "Arabic name must be a string",
-                "string.min": "Arabic name must be at least 2 characters",
-                "any.required": "Arabic name is required"
-            }),
-            description: Joi.string().min(3).required().messages({
-                "string.base": "Arabic description must be a string",
-                "string.min": "Arabic description must be at least 3 characters",
-                "any.required": "Arabic description is required"
-            }),
-            features: Joi.array()
-                .items(Joi.string().trim().min(1).messages({
-                    "string.base": "Each feature must be a string",
-                    "string.empty": "Feature can't be empty"
-                }))
-                .min(1)
-                .required()
-                .messages({
-                    "array.base": "Arabic features must be an array",
-                    "array.min": "Arabic features must contain at least one feature",
-                    "any.required": "Arabic features are required"
-                })
-        }).required(),
-
-        english: Joi.object({
-            name: Joi.string().trim().lowercase().min(2).required().messages({
-                "string.base": "English name must be a string",
-                "string.min": "English name must be at least 2 characters",
-                "any.required": "English name is required"
-            }),
-            description: Joi.string().min(3).required().messages({
-                "string.base": "English description must be a string",
-                "string.min": "English description must be at least 3 characters",
-                "any.required": "English description is required"
-            }),
-            features: Joi.array()
-                .items(Joi.string().trim().min(1).messages({
-                    "string.base": "Each feature must be a string",
-                    "string.empty": "Feature can't be empty"
-                }))
-                .min(1)
-                .required()
-                .messages({
-                    "array.base": "English features must be an array",
-                    "array.min": "English features must contain at least one feature",
-                    "any.required": "English features are required"
-                })
-        }).required()
-    }),
-
-    params: Joi.object({}),
-    files: Joi.object({})
-};
 
 
 export const updatePlanSchema = {
@@ -139,3 +77,83 @@ export const deletePlanSchema = {
 
     files: Joi.object({}).optional()
 };
+
+
+
+export const createPlanSchema = {
+    body: Joi.object({
+        price: Joi.number().min(0).required().messages({
+            "number.base": "Price must be a number",
+            "number.min": "Price must be greater than or equal to 0",
+            "any.required": "Price is required"
+        }),
+
+        arabic: Joi.object({
+            name: Joi.string().trim().lowercase().min(2).required().messages({
+                "string.base": "Arabic name must be a string",
+                "string.min": "Arabic name must be at least 2 characters",
+                "any.required": "Arabic name is required"
+            }),
+            description: Joi.string().min(3).required().messages({
+                "string.base": "Arabic description must be a string",
+                "string.min": "Arabic description must be at least 3 characters",
+                "any.required": "Arabic description is required"
+            }),
+            features: Joi.array()
+                .items(Joi.string().trim().min(1).messages({
+                    "string.base": "Each feature must be a string",
+                    "string.empty": "Feature can't be empty"
+                }))
+                .min(1)
+                .required()
+                .messages({
+                    "array.base": "Arabic features must be an array",
+                    "array.min": "Arabic features must contain at least one feature",
+                    "any.required": "Arabic features are required"
+                })
+        }).required(),
+
+        english: Joi.object({
+            name: Joi.string().trim().lowercase().min(2).required().messages({
+                "string.base": "English name must be a string",
+                "string.min": "English name must be at least 2 characters",
+                "any.required": "English name is required"
+            }),
+            description: Joi.string().min(3).required().messages({
+                "string.base": "English description must be a string",
+                "string.min": "English description must be at least 3 characters",
+                "any.required": "English description is required"
+            }),
+            features: Joi.array()
+                .items(Joi.string().trim().min(1).messages({
+                    "string.base": "Each feature must be a string",
+                    "string.empty": "Feature can't be empty"
+                }))
+                .min(1)
+                .required()
+                .messages({
+                    "array.base": "English features must be an array",
+                    "array.min": "English features must contain at least one feature",
+                    "any.required": "English features are required"
+                })
+        }).required()
+        ,
+        activeFeatures: Joi.array().items(Joi.number().messages({
+            "number.base": "Active feature must be a number",
+            "number.min": "Active feature must be greater than or equal to 0",
+            "any.required": "Active feature is required"
+        })).min(0).required().messages({
+            "array.base": "Active features must be an array of numbers",
+            "any.required": "Active features are required",
+            "array.min": "At least one active feature is required"
+        })
+    }),
+
+    params: Joi.object({}),
+    files: Joi.object({})
+};
+
+
+
+
+
