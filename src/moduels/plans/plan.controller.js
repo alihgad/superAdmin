@@ -10,8 +10,8 @@ let planRouter = Router()
 
 planRouter.get("/", asyncHandler(getAllPlans))
 planRouter.get("/:name", asyncHandler(getPlan))
-planRouter.post("/", auth() , validate(createPlanSchema), asyncHandler(createPlan))
-planRouter.put("/:id", auth() ,validate(updatePlanSchema) ,asyncHandler(updatePlan))
-planRouter.delete("/:id", auth() ,asyncHandler(deletePlan))
+planRouter.post("/", validate(createPlanSchema), asyncHandler(createPlan))
+planRouter.put("/:id",validate(updatePlanSchema) ,asyncHandler(updatePlan))
+planRouter.delete("/:id",asyncHandler(deletePlan))
 
 export default planRouter   
