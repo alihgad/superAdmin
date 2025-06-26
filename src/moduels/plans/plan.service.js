@@ -26,7 +26,7 @@ export const updatePlan = async (req, res, next) => {
         return next(new Error("plan not found"))
     }
 
-    if (english.name) {
+    if (english?.name) {
         let nameExsist = await planModel.findOne({ "english.name": english.name.toLowerCase().trim() })
         if (nameExsist) {
             return next(new Error("plan name already exists"))
@@ -34,7 +34,7 @@ export const updatePlan = async (req, res, next) => {
         plan.english.name = english.name
     }
 
-    if (arabic.name) {
+    if (arabic?.name) {
         let nameExsist = await planModel.findOne({ "arabic.name": arabic.name.toLowerCase().trim() })
         if (nameExsist) {
             return next(new Error("plan name already exists"))
@@ -43,10 +43,10 @@ export const updatePlan = async (req, res, next) => {
     }
 
     plan.price = price ? Number(price) : plan.price
-    plan.english.description = english.description ? english.description : plan.english.description
-    plan.arabic.description = arabic.description ? arabic.description : plan.arabic.description
-    plan.english.features = english.features ? english.features : plan.english.features
-    plan.arabic.features = arabic.features ? arabic.features : plan.arabic.features
+    plan.english.description = english?.description ? english?.description : plan.english.description
+    plan.arabic.description = arabic?.description ? arabic?.description : plan.arabic.description
+    plan.english.features = english?.features ? english?.features : plan.english.features
+    plan.arabic.features = arabic?.features ? arabic?.features : plan.arabic.features
     await plan.save()
     return res.status(200).json({ message: "plan updated successfully", plan })
 }
