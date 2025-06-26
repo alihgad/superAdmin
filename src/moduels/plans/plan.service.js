@@ -52,11 +52,11 @@ export const updatePlan = async (req, res, next) => {
 }
 
 export const deletePlan = async (req, res, next) => {
-    let plan = await planModel.findById(req.params.id)
+    let plan = await planModel.findByIdAndDelete(req.params.id)
     if (!plan) {
         return next(new Error("plan not found"))
     }
-    await plan.remove()
+    
     return res.status(200).json({ message: "plan deleted successfully" })
 }
 
