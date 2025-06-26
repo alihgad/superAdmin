@@ -3,47 +3,6 @@ import { cloudinaryUpload as cloudinary } from "../../middelWares/multer.js";
 
 export const addArticle = async (req, res, next) => {
     let { article, arabic, english } = req.body;
-    console.log(req.files);
-
-
-
-    if (!article) {
-        return res.status(400).json({
-            message: "Article field are required",
-        });
-    }
-
-    if (!arabic.title || !english.title || !arabic.content || !english.content) {
-        return res.status(400).json({
-            message: "All fields are required",
-        });
-    }
-
-    if (req?.files?.image?.length === 0 || req?.files?.vedio?.length === 0) {
-        return next(new Error("Image and video are required"), {
-            statusCode: 400,
-            message: "Image and video are required"
-        });
-    }
-
-    if (typeof article !== "string" || typeof title !== "string" || typeof content !== "string") {
-        return next(new Error("Article, title and content must be strings"), {
-            statusCode: 400,
-            message: "Article, title and content must be strings"
-        });
-    }
-
-    if (typeof steps === "string") {
-        steps = steps.split(",");
-        steps = steps.map(step => step.trim());
-    }
-
-    if (!Array.isArray(steps)) {
-        return next(new Error("Steps must be an array"), {
-            statusCode: 400,
-            message: "Steps must be an array"
-        });
-    }
 
     let uploadImage = async () => {
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.image[0].path, {
@@ -90,12 +49,11 @@ export const addArticle = async (req, res, next) => {
             message: "Vedio upload failed"
         });
     }
-    // uploaded
+
     let newArticle = await helpModel.create({
         article,
-        title,
-        content,
-        steps,
+        arabic,
+        english,
         image,
         vedio
     });
@@ -110,6 +68,7 @@ export const addArticle = async (req, res, next) => {
 
 
 export const getAllArticles = async (req, res, next) => {
+
     let articles = await helpModel.find({})
     if (!articles || articles.length === 0) {
         return res.status(404).json({
@@ -121,6 +80,7 @@ export const getAllArticles = async (req, res, next) => {
         message: "Articles retrieved successfully",
         articles
     });
+
 }
 
 
@@ -152,13 +112,11 @@ export const getArticle = async (req, res, next) => {
 }
 
 export const updateArticle = async (req, res, next) => {
-    let { articleName } = req.params;
+    let { id } = req.params;
     let { arabic, english } = req.body;
 
 
-    articleName = articleName.toLowerCase().trim();
-
-    let articleToUpdate = await helpModel.findOne({ article: articleName });
+    let articleToUpdate = await helpModel.findById(id);
     if (!articleToUpdate) {
         return next(new Error("Article not found"), {
             statusCode: 404,
@@ -166,24 +124,35 @@ export const updateArticle = async (req, res, next) => {
         });
     }
 
-    articleToUpdate.arabic.title = arabic?.title ? arabic.title : articleToUpdate.arabic.title;
-    articleToUpdate.arabic.content = arabic?.content ? arabic.content : articleToUpdate.arabic.content;
-    articleToUpdate.arabic.steps = arabic?.steps ? arabic.steps : articleToUpdate.arabic.steps;
+    if (arabic?.title && english?.title) {
+        articleToUpdate.arabic.title = arabic.title
+        articleToUpdate.english.title = english.title
+    }
 
-    articleToUpdate.english.title = english?.title ? english.title : articleToUpdate.english.title;
-    articleToUpdate.english.content = english?.content ? english.content : articleToUpdate.english.content;
-    articleToUpdate.english.steps = english?.steps ? english.steps : articleToUpdate.english.steps;
+    if (arabic?.content && english?.content) {
+        articleToUpdate.arabic.content = arabic.content
+        articleToUpdate.english.content = english.content
+    }
+
+    if (arabic?.steps && english?.steps) {
+        articleToUpdate.arabic.steps = arabic.steps
+        articleToUpdate.english.steps = english.steps
+    }
+
 
     if (req.files?.image?.length > 0) {
-        await cloudinary.uploader.destroy(articleToUpdate.image.public_id, {
-            resource_type: "image"
-        }).catch((error) => next(new Error("Image deletion failed " + error.message + ""), {
-            statusCode: 500,
-            message: error.message
-        }));
+        if (articleToUpdate.image?.public_id) {
+            await cloudinary.uploader.destroy(articleToUpdate.image.public_id, {
+                resource_type: "image"
+            }).catch((error) => next(new Error("Image deletion failed " + error.message + ""), {
+                statusCode: 500,
+                message: error.message
+            }));
+        }
+
 
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
-            folder: `superAdmin/help/articles/${articleName}`,
+            folder: `superAdmin/help/articles/${articleToUpdate.article}`,
             resource_type: "image"
         }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
             statusCode: 500,
@@ -197,15 +166,17 @@ export const updateArticle = async (req, res, next) => {
     }
 
     if (req.files?.vedio?.length > 0) {
-        await cloudinary.uploader.destroy(articleToUpdate.vedio.public_id, {
-            resource_type: "vedio"
-        }).catch((error) => next(new Error("vedio deletion failed " + error.message + ""), {
-            statusCode: 500,
-            message: error.message
-        }));
+        if (articleToUpdate.vedio?.public_id) {
+            await cloudinary.uploader.destroy(articleToUpdate.vedio.public_id, {
+                resource_type: "vedio"
+            }).catch((error) => next(new Error("vedio deletion failed " + error.message + ""), {
+                statusCode: 500,
+                message: error.message
+            }));
+        }
 
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
-            folder: `superAdmin/help/articles/${articleName}`,
+            folder: `superAdmin/help/articles/${articleToUpdate.article}`,
             resource_type: "vedio"
         }).catch((error) => next(new Error("vedio upload failed " + error.message + ""), {
             statusCode: 500,
@@ -228,17 +199,10 @@ export const updateArticle = async (req, res, next) => {
 
 
 export const deleteArticle = async (req, res, next) => {
-    let { articleName } = req.params;
-    if (!articleName || typeof articleName !== "string") {
-        return next(new Error("Article name is required"), {
-            statusCode: 400,
-            message: "Article name is required"
-        });
-    }
+    let { id } = req.params;
+    
 
-    articleName = articleName.toLowerCase().trim();
-
-    let articleToDelete = await helpModel.findOne({ article: articleName });
+    let articleToDelete = await helpModel.findByIdAndDelete(id);
     if (!articleToDelete) {
         return next(new Error("Article not found"), {
             statusCode: 404,
@@ -246,21 +210,24 @@ export const deleteArticle = async (req, res, next) => {
         });
     }
 
-    await cloudinary.uploader.destroy(articleToDelete.image.public_id, {
-        resource_type: "image"
-    }).catch((error) => next(new Error("Image deletion failed " + error.message + ""), {
-        statusCode: 500,
-        message: error.message
-    }));
+    if(articleToDelete.image?.public_id){
+        await cloudinary.uploader.destroy(articleToDelete.image.public_id, {
+            resource_type: "image"
+        }).catch((error) => next(new Error("Image deletion failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }));
+    }
 
-    await cloudinary.uploader.destroy(articleToDelete.vedio.public_id, {
-        resource_type: "vedio"
-    }).catch((error) => next(new Error("vedio deletion failed " + error.message + ""), {
-        statusCode: 500,
-        message: error.message
-    }));
+    if(articleToDelete.vedio?.public_id){
+        await cloudinary.uploader.destroy(articleToDelete.vedio.public_id, {
+            resource_type: "vedio"
+        }).catch((error) => next(new Error("vedio deletion failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }));
+    }
 
-    await articleToDelete.remove();
     return res.status(200).json({
         message: "Article deleted successfully"
     });

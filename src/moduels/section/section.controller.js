@@ -10,14 +10,14 @@ const sectionRouter = Router();
 
 sectionRouter.post("/slider/:page/:section", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.createSlider))
 sectionRouter.put("/slider/:sliderId", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.addToSlider))
-sectionRouter.patch("/slider/:sliderId", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.updateSlider))
+sectionRouter.patch("/slider/:page/:section/:sliderId", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.updateSlider))
 sectionRouter.delete("/slider/:sliderId", asyncHandler(ss.deleteSlider))
 sectionRouter.get("/slider/:page", asyncHandler(ss.getAllSlider))
 sectionRouter.get("/slider/:page/:section", asyncHandler(ss.getSlider))
 
 
 sectionRouter.post("/:page/:section", multerUpload.array("images"), validator(schemas.addSectionSchema) , asyncHandler(ss.addSection))
-sectionRouter.put("/:page/:section", asyncHandler(ss.updateSection))
+sectionRouter.put("/:page/:section" , validator(schemas.addSectionSchema) ,asyncHandler(ss.updateSection))
 sectionRouter.put("/images/:page/:section", multerUpload.array("images"), asyncHandler(ss.addImagesToSection))
 sectionRouter.delete("/images/:page/:section/:imageId", asyncHandler(ss.removeImageFromSection))
 sectionRouter.get("/:page", asyncHandler(ss.getAllSections))

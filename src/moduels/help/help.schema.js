@@ -3,9 +3,9 @@ import * as globalFields from "../../utils/globalFields.js";
 
 export const updateArticleSchema = {
   params: Joi.object({
-    articleName: Joi.string().trim().required().messages({
-      "any.required": "Article name is required",
-      "string.base": "Article name must be a string"
+    id: Joi.string().trim().required().messages({
+      "any.required": "Article id is required",
+      "string.base": "Article id must be a string"
     })
   }),
 
@@ -65,7 +65,6 @@ export const addArticleSchema = {
           'any.required': 'Arabic title is required',
           'string.base': 'Arabic title must be a string',
         }),
-
       content: Joi.string()
         .trim()
         .required()
@@ -107,19 +106,19 @@ export const addArticleSchema = {
   }),
 
   files: Joi.object({
-    image: globalFields.file.required(),
-    vedio: globalFields.file.required(),
+    image: Joi.array().items(globalFields.file).required(),
+    vedio: Joi.array().items(globalFields.file).required(),
   }).required()
 };
 
 export const deleteArticleSchema = {
   params: Joi.object({
-    articleName: Joi.string()
+    id: Joi.string()
       .trim()
       .required()
       .messages({
-        "any.required": "Article name is required",
-        "string.base": "Article name must be a string"
+        "any.required": "Article id is required",
+        "string.base": "Article id must be a string"
       })
   })
 };

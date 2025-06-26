@@ -44,22 +44,6 @@ export const updateLink = async (req, res) => {
         return next(new Error("Link not found", { cause: 404 }));
     }
 
-    if (!link && !arabic.title && !english.title && !category) {
-        return next(new Error("at least one field is required", { cause: 400 }));
-    }
-
-    if (link && !isHttpUrl(link)) {
-        return next(new Error("link must be a valid link", { cause: 400 }));
-    }
-
-    if (title && typeof title !== 'string') {
-        return next(new Error("title must be a string", { cause: 400 }));
-    }
-
-    if (category && typeof category !== 'string') {
-        return next(new Error("category must be a string", { cause: 400 }));
-    }
-
 
     if (link) updatetLink.link = link.trim();
     if (arabic.title) updatetLink.arabic.title = arabic.title.toLowerCase().trim();
@@ -88,7 +72,8 @@ export const getAllLinks = async (req, res) => {
 }
 
 export const getAllCatLinks = async (req, res) => {
-    let links = await footerModel.find({ category: req.params.category });
+    let { category } = req.params;
+    let links = await footerModel.find({ category: category });
     if (!links || links.length === 0) {
         return res.status(404).json({ message: "No links found" });
     }
@@ -140,6 +125,7 @@ export const deleteSocial = async (req, res) => {
     let { id } = req.params;
 
     let deletedSocial = await socialModel.findByIdAndDelete(id);
+
     if (!deletedSocial) {
         return next(new Error("Social link not found", { cause: 404 }));
     }

@@ -2,12 +2,14 @@
 
 
 export default (schema) => (req, res, next) => {
-
-  if (req.body.arabic && typeof req.body.arabic === 'string') {
+  
+  console.log(req.files);
+  
+  if (req.body?.arabic && typeof req.body.arabic === 'string') {
     req.body.arabic = JSON.parse(req.body.arabic)
   }
 
-  if (req.body.english && typeof req.body.english === 'string') {
+  if (req.body?.english && typeof req.body.english === 'string') {
     req.body.english = JSON.parse(req.body.english)
   }
 

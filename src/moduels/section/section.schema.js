@@ -32,22 +32,5 @@ export const createSliderSchema = {
       title: joi.string().allow("").optional(),
       content: joi.string().allow("").optional()
     }).optional()
-  }).custom((value, helpers) => {
-    const aTitle = value.arabic?.title;
-    const aContent = value.arabic?.content;
-    const eTitle = value.english?.title;
-    const eContent = value.english?.content;
-
-    const hasImage = !!helpers.state.ancestors[0].file;
-
-    if (
-      (!aTitle && !eTitle) && (!aContent && !eContent) && !hasImage
-    ) {
-      return helpers.error("any.custom", "يجب إدخال عنوان أو محتوى أو صورة على الأقل");
-    }
-
-    return value;
-  }).messages({
-    "any.custom": "{{#label}}"
   })
 };
