@@ -147,7 +147,7 @@ export let createSlider = async (req, res, next) => {
         return next(new Error("section already exists"))
     }
 
-    const { arabic, english } = req.body;
+    const { arabic, english , title , content } = req.body;
     let image = req.file;
     let secure_url, public_id;
     let newSlider = {}
@@ -164,14 +164,24 @@ export let createSlider = async (req, res, next) => {
     if (!arabic && !english && !image) {
         return next(new Error("arabic or english or image is required"))
     }
-    if (arabic?.title && english?.title) newSlider.arabic = arabic
-    if (arabic?.content && english?.content) newSlider.english = english 
-    console.log(newSlider);
+    if (arabic?.title && english?.title) {
+        newSlider.arabic.title = arabic.title
+        newSlider.english.title = english.title
+    }
+
+    if (arabic?.content && english?.content) {
+        newSlider.english = english
+        newSlider.arabic.content = arabic.content
+        newSlider.english.content = english.content
+    }
     
+
 
     let slider = new SliderModel({
         page: req.params.page,
         section: req.params.section,
+        title ,
+        content,
         slides: [
             newSlider
         ]
@@ -233,7 +243,7 @@ export let updateSlider = async (req, res, next) => {
     }
 
 
-    const { arabic, english } = req.body;
+    const { arabic, english , title , content} = req.body;
     let image = req.file;
 
     let target = slider.slides.find((slide) => slide._id == req.params.sliderId)
@@ -257,6 +267,10 @@ export let updateSlider = async (req, res, next) => {
             public_id
         }
     }
+
+    if(title) slider.title = title
+    if(content) slider.content = content
+    
     await slider.save()
     return res.status(200).json({ message: `${slider.section} slider updated successfully`, slider })
 }

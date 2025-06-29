@@ -13,6 +13,13 @@ const SliderSchema = new mongoose.Schema({
         required: true
     },
 
+    title:{
+        type: String
+    },
+    content:{
+        type: String
+    },
+
     slides: [
         {
             arabic: {
