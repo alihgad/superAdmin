@@ -2,7 +2,9 @@ import express from "express";
 import morgan from "morgan";
 import bootstrab from "./bootstrab.js";
 import dotenv from "dotenv";
+
 import connectDB from "./src/DB/connection.js";
+
 dotenv.config();
 
 
@@ -12,9 +14,12 @@ app.use(morgan('dev'));
 
 
 bootstrab(app);
-connectDB().then(()=>{
+connectDB().then(() => {
     console.log("Database connected");
-}).catch((error)=>{
+}).catch((error) => {
     console.log(error.message);
 })
+
+
+
 
