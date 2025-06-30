@@ -152,7 +152,8 @@ export let createSlider = async (req, res, next) => {
     let secure_url, public_id;
     let newSlider = {
         arabic:{},
-        english:{}
+        english:{},
+        image:{}
     }
 
     if (image) {
