@@ -150,7 +150,10 @@ export let createSlider = async (req, res, next) => {
     const { arabic, english , title , content } = req.body;
     let image = req.file;
     let secure_url, public_id;
-    let newSlider = {}
+    let newSlider = {
+        arabic:{},
+        english:{}
+    }
 
     if (image) {
         let data = await cloudinary.uploader.upload(image.path, {
