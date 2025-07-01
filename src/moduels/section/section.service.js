@@ -174,6 +174,16 @@ export let createSlider = async (req, res, next) => {
         newSlider.arabic.content = arabic.content
         newSlider.english.content = english.content
     }
+
+    if((title.arabic && !title.english )|| (!title.arabic && title.english )){
+        return next(new Error("arabic and english title is required"))
+    }
+
+    if((content.arabic && !content.english )|| (!content.arabic && content.english )){
+        return next(new Error("arabic and english content is required"))
+    }
+
+
     
 
 

@@ -54,6 +54,14 @@ export const updatePlanSchema = {
                     "array.min": "English features must contain at least one feature"
                 })
         }).optional()
+        ,
+        activeFeatures: Joi.array().items(Joi.number().messages({
+            "number.base": "Active feature must be a number",
+            "number.min": "Active feature must be greater than or equal to 0",
+        })).min(0).optional().messages({
+            "array.base": "Active features must be an array of numbers",
+            "array.min": "At least one active feature is required"
+        })
     }),
 
     params: Joi.object({

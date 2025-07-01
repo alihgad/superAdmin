@@ -32,7 +32,13 @@ export const createSliderSchema = {
       title: joi.string().allow("").optional(),
       content: joi.string().allow("").optional()
     }).optional(),
-    title: joi.string().allow("").optional(),
-    content: joi.string().allow("").optional(),
+    title: joi.object({
+      arabic: joi.string().allow("").optional(),
+      english: joi.string().allow("").optional(),
+    }),
+    content: joi.object({
+      arabic: joi.string().allow("").optional(),
+      english: joi.string().allow("").optional(),
+    })
   })
 };
