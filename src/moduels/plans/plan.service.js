@@ -21,7 +21,7 @@ export const createPlan = async (req, res, next) => {
 }
 
 export const updatePlan = async (req, res, next) => {
-    const { price, arabic, english } = req.body;
+    const { price, arabic, english, activeFeatures } = req.body;
 
     let plan = await planModel.findById(req.params.id)
     if (!plan) {
@@ -49,6 +49,7 @@ export const updatePlan = async (req, res, next) => {
     plan.arabic.description = arabic?.description ? arabic?.description : plan.arabic.description
     plan.english.features = english?.features ? english?.features : plan.english.features
     plan.arabic.features = arabic?.features ? arabic?.features : plan.arabic.features
+    plan.activeFeatures = activeFeatures ? activeFeatures : plan.activeFeatures
     await plan.save()
     return res.status(200).json({ message: "plan updated successfully", plan })
 }
