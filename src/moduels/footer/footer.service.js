@@ -47,8 +47,8 @@ export const updateLink = async (req, res) => {
 
 
     if (link) updatetLink.link = link.trim();
-    if (arabic.title) updatetLink.arabic.title = arabic.title.toLowerCase().trim();
-    if (english.title) updatetLink.english.title = english.title.toLowerCase().trim();
+    if (arabic?.title) updatetLink.arabic.title = arabic?.title?.toLowerCase().trim();
+    if (english?.title) updatetLink.english.title = english?.title?.toLowerCase().trim();
     if (category) updatetLink.category = category.toLowerCase().trim();
     await updatetLink.save();
     return res.status(200).json({ message: "Link updated successfully", updatetLink });
