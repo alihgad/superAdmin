@@ -176,7 +176,7 @@ export const updateSocialSchema = {
 };
 
 
-export const deleteSocialMedia = {
+export const deleteSocialMediaSchema = {
     params: Joi.object({
         id: globalField.id
     })

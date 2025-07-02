@@ -134,3 +134,13 @@ export const deleteSocial = async (req, res) => {
     return res.status(200).json({ message: "Social link deleted successfully", deletedSocial });
 }
 
+export const getAllSocial = async(req,res) => {
+
+    let socialLinks = await socialModel.find();
+    if (!socialLinks || socialLinks.length === 0) {
+        return res.status(404).json({ message: "No social links found" });
+    }
+    return res.status(200).json({ message: "Social links retrieved successfully", socialLinks });
+
+}
+
