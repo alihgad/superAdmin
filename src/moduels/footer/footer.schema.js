@@ -6,7 +6,6 @@ import * as  globalField from '../../utils/globalFields.js';
 export const addLinkSchema = {
     body: Joi.object({
         link: Joi.string()
-            .uri()
             .trim()
             .lowercase()
             .required()
@@ -59,7 +58,6 @@ export const addLinkSchema = {
 export const updateLinkSchema = {
     body: Joi.object({
         link: Joi.string()
-            .uri()
             .trim()
             .lowercase()
             .messages({
