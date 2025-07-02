@@ -6,7 +6,7 @@ export const addLink = async (req, res) => {
 
     const { link, arabic, english } = req.body;
     let { category } = req.params;
-    if (!link || !isHttpUrl(link)) {
+    if (!link ) {
         return res.status(400).json({ message: "link is required and must be a string and a valid link" });
     }
 
