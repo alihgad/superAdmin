@@ -20,14 +20,15 @@ export const addLink = async (req, res) => {
     if (existingLink) {
         return res.status(400).json({ message: "Link already exists" });
     }
+console.log(arabic.title)
 
     let newLink = await footerModel.create({
         category: category.toLowerCase().trim(),
         arabic: {
-            title: arabic.title.tolowerCase().trim()
+            title: arabic.title.toLowerCase().trim()
         },
         english: {
-            title: english.title.tolowerCase().trim()
+            title: english.title.toLowerCase().trim()
         },
         link: link.trim()
     })
