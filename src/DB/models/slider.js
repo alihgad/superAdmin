@@ -13,11 +13,14 @@ const SliderSchema = new mongoose.Schema({
         required: true
     },
 
-    title:{
-        type: String
+    title: {
+        arabic: String,
+        english: String
     },
-    content:{
-        type: String
+
+    content: {
+        arabic: String,
+        english: String
     },
 
     slides: [
@@ -25,7 +28,7 @@ const SliderSchema = new mongoose.Schema({
             arabic: {
                 title: {
                     type: String,
-                    
+
                 },
                 content: {
                     type: String
@@ -34,7 +37,7 @@ const SliderSchema = new mongoose.Schema({
             english: {
                 title: {
                     type: String,
-                    
+
                 },
                 content: {
                     type: String

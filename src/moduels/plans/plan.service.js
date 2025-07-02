@@ -44,12 +44,16 @@ export const updatePlan = async (req, res, next) => {
         plan.arabic.name = arabic.name
     }
 
+    if (activeFeatures?.length > 0) {
+        plan.activeFeatures = activeFeatures
+    } 
+
     plan.price = price ? Number(price) : plan.price
     plan.english.description = english?.description ? english?.description : plan.english.description
     plan.arabic.description = arabic?.description ? arabic?.description : plan.arabic.description
     plan.english.features = english?.features ? english?.features : plan.english.features
     plan.arabic.features = arabic?.features ? arabic?.features : plan.arabic.features
-    plan.activeFeatures = activeFeatures ? activeFeatures : plan.activeFeatures
+
     await plan.save()
     return res.status(200).json({ message: "plan updated successfully", plan })
 }

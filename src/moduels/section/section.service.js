@@ -156,6 +156,8 @@ export let createSlider = async (req, res, next) => {
         image:{}
     }
 
+    
+
     if (image) {
         let data = await cloudinary.uploader.upload(image.path, {
             folder: `superAdmin/${req.params.page}/${req.params.section}/slider`
@@ -187,8 +189,6 @@ export let createSlider = async (req, res, next) => {
         return next(new Error("arabic and english content is required"))
     }
 
-
-    
 
 
     let slider = new SliderModel({
@@ -233,9 +233,12 @@ export let addToSlider = async (req, res, next) => {
     let secure_url, public_id;
 
     if (image) {
-        let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
+        let data = await cloudinary.uploader.upload(image.path, {
             folder: `superAdmin/${slider.page}/${slider.section}/slider`
         })
+
+        secure_url = data.secure_url
+        public_id = data.public_id
     }
 
     slider.slides.push({
@@ -256,8 +259,10 @@ export let updateSlider = async (req, res, next) => {
         return next(new Error("section not found"))
     }
 
-
-    const { arabic, english , title , content} = req.body;
+    let arabic = req.body?.arabic
+    let english = req.body?.english
+    let title = req.body?.title
+    let content = req.body?.content
     let image = req.file;
 
     let target = slider.slides.find((slide) => slide._id == req.params.sliderId)
@@ -270,21 +275,30 @@ export let updateSlider = async (req, res, next) => {
     if (english?.title) target.english.title = english.title.trim().toLowerCase()
     if (english?.content) target.english.content = english.content.trim().toLowerCase()
     if (image) {
+
         if (target?.image?.public_id) {
             await cloudinary.uploader.destroy(target.image.public_id)
         }
+
         let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
             folder: `superAdmin/${slider.page}/${slider.section}/slider`
         })
+
         target.image = {
             secure_url,
             public_id
         }
+
     }
+
+    
+    
 
     if(title) slider.title = title
     if(content) slider.content = content
-    
+
+
+    // await target.save()    
     await slider.save()
     return res.status(200).json({ message: `${slider.section} slider updated successfully`, slider })
 }
