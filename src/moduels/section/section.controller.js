@@ -12,7 +12,7 @@ sectionRouter.post("/slider/:page/:section", multerUpload.single("image"), valid
 sectionRouter.put("/slider/:sliderId", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.addToSlider))
 sectionRouter.patch("/slider/:page/:section/:sliderId", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.updateSlider))
 sectionRouter.delete("/slider/:sliderId", asyncHandler(ss.deleteSlider))
-sectionRouter.delete("/slider/:page/:section/:sliderId", asyncHandler(ss.deleteSlide))
+sectionRouter.delete("/slider/:page/:section/:slideId", asyncHandler(ss.deleteSlide))
 sectionRouter.get("/slider/:page", asyncHandler(ss.getAllSlider))
 sectionRouter.get("/slider/:page/:section", asyncHandler(ss.getSlider))
 

@@ -1,6 +1,7 @@
 import { cloudinaryUpload as cloudinary } from "../../middelWares/multer.js"
 import sectionModel from "../../DB/models/section.js"
 import SliderModel from "../../DB/models/slider.js"
+import mongoose from "mongoose"
 
 export const updateSection = async (req, res, next) => {
     let section = await sectionModel.findOne({ section: req.params.section, page: req.params.page })
@@ -321,8 +322,16 @@ export let deleteSlide = async (req, res, next) => {
     if (!slider) {
         return next(new Error("section not found"))
     }
+    
+    
+    
 
-    let target = slider.slides.find((slide) => slide._id == req.params.slideId)
+    let target = slider.slides.find((slide) => {
+       
+        
+        return slide._id.toString() == req.params.slideId
+    })
+
     if (!target) {
         return next(new Error("wrong slide id"))
     }
