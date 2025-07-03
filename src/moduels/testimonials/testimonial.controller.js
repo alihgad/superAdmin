@@ -8,9 +8,9 @@ import * as schemas from './testimonials.schema.js';
 const testimonialRouter = express.Router();
 
 // Create testimonial
-testimonialRouter.post('/', multerUpload.single('image'), validator(schemas.createTestimonialSchema), asyncHandler(ts.createTestimonial));
+testimonialRouter.post('/', multerUpload.single('image'),  asyncHandler(ts.createTestimonial));
 // Update testimonial
-testimonialRouter.patch('/:id', multerUpload.single('image'), validator(schemas.updateTestimonialSchema), asyncHandler(ts.updateTestimonial));
+testimonialRouter.patch('/:id', multerUpload.single('image'),  asyncHandler(ts.updateTestimonial));
 // Delete testimonial
 testimonialRouter.delete('/:id', validator(schemas.deleteTestimonialSchema), asyncHandler(ts.deleteTestimonial));
 // Get all testimonials
