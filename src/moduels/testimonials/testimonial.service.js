@@ -2,14 +2,13 @@ import { testimonialModel } from '../../DB/models/testimonials.js';
 import {v2 as cloudinary} from "cloudinary"
 // Create testimonial
 export async function createTestimonial(req, res) {
-  const { name , text , company} = req.body;
+  const { Arabic , english} = req.body;
   let {public_id, secure_url} = await cloudinary.uploader.upload(req.file.path, {
     folder: 'superAdmin/testimonials'
   })
   const testimonial = await testimonialModel.create({
-    name,
-    text,
-    company,
+    arabic ,
+    english,
     image: {public_id, secure_url}
   });
   return res.status(201).json({ message: 'Testimonial created', testimonial });
@@ -18,7 +17,7 @@ export async function createTestimonial(req, res) {
 // Update testimonial
 export async function updateTestimonial(req, res, next) {
   const { id } = req.params;
-  const { name , text , company } = req.body;
+  const { arabic , english } = req.body;
   let testimonial = await testimonialModel.findById(id);
   if(!testimonial) return next(new Error("Testimonial not found", { cause: 404 }));
   let img;
@@ -32,9 +31,14 @@ export async function updateTestimonial(req, res, next) {
     img = {public_id, secure_url}
   }
   
-  if(name) testimonial.name = name;
-  if(text) testimonial.text = text;
-  if(company) testimonial.company = company;
+  if(arabic?.name) testimonial.name = arabic.name;
+  if(arabic?.text) testimonial.text = arabic.text;
+  if(arabic?.company) testimonial.company = arabic.company;
+  
+  if(english?.name) testimonial.name = english.name;
+  if(english?.text) testimonial.text = english.text;
+  if(english?.company) testimonial.company = english.company;
+  
   if(img) testimonial.image = img;
   await testimonial.save();
   return res.json({ message: 'Testimonial updated', testimonial });
