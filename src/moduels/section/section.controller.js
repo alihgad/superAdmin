@@ -18,7 +18,7 @@ sectionRouter.get("/slider/:page/:section", asyncHandler(ss.getSlider))
 
 
 sectionRouter.post("/:page/:section", multerUpload.array("images"), validator(schemas.addSectionSchema) , asyncHandler(ss.addSection))
-sectionRouter.put("/:page/:section" , validator(schemas.addSectionSchema) ,asyncHandler(ss.updateSection))
+sectionRouter.put("/:page/:section" , multerUpload.array("images") ,asyncHandler(ss.updateSection))
 sectionRouter.put("/images/:page/:section", multerUpload.array("images"), asyncHandler(ss.addImagesToSection))
 sectionRouter.delete("/images/:page/:section/:imageId", asyncHandler(ss.removeImageFromSection))
 sectionRouter.get("/:page", asyncHandler(ss.getAllSections))
