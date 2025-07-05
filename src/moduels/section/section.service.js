@@ -14,7 +14,23 @@ export const updateSection = async (req, res, next) => {
     if (arabic?.content) section.arabic.content = arabic.content.trim().toLowerCase()
     if (english?.title) section.english.title = english.title.trim().toLowerCase()
     if (english?.content) section.english.content = english.content.trim().toLowerCase()
+    if(req.files){
+        if(section.images?.length >0){
+            for (const image of section.images) {
+              await cloudinary.uploader.destroy(image.public_id)
+            }
+        }
 
+        for (const image of req.files) {
+        let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
+            folder: `superAdmin/${req.params.page}/${req.params.section}`
+        })
+        section.images.push({
+            public_id,
+            secure_url: secure_url
+        })
+        }
+    }
     await section.save()
     return res.status(200).json({ message: `${section.section} section updated successfully` })
 
