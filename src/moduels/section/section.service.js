@@ -291,7 +291,7 @@ export let addToSlider = async (req, res, next) => {
     let arabic = req.body?.arabic
     let english = req.body?.english
     let image = req.file;
-
+    let text = req.body?.text
 
     let target = slider.slides.find((slide) => slide._id == req.params.slideId)
     if (!target) {
@@ -302,7 +302,8 @@ export let addToSlider = async (req, res, next) => {
     if (arabic?.content) target.arabic.content = arabic.content.trim()
     if (english?.title) target.english.title = english.title.trim()
     if (english?.content) target.english.content = english.content.trim()
-    
+    if (text) target.text = text.trim()
+
     if (image) {
 
         if (target?.image?.public_id) {
@@ -321,11 +322,6 @@ export let addToSlider = async (req, res, next) => {
     }
 
 
-
-
-    if (title) slider.title = title
-    if (content) slider.content = content
-
    
     await slider.save()
     return res.status(200).json({ message: `${slider.section} slider updated successfully`, slider })
@@ -337,9 +333,6 @@ export let updateSlider = async (req, res, next) => {
         return next(new Error("section not found"))
     }
 
-    if(req.body?.text){
-        slider.text = req.body?.text.trim()
-    }
     
     
     if(req.body?.title){
