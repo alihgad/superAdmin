@@ -14,21 +14,22 @@ export const updateSection = async (req, res, next) => {
     if (arabic?.content) section.arabic.content = arabic.content.trim().toLowerCase()
     if (english?.title) section.english.title = english.title.trim().toLowerCase()
     if (english?.content) section.english.content = english.content.trim().toLowerCase()
-    if(req.files){
-        if(section.images?.length >0){
+    if (req.files) {
+
+        if (section.images?.length > 0) {
             for (const image of section.images) {
-              await cloudinary.uploader.destroy(image.public_id)
+                await cloudinary.uploader.destroy(image.public_id).catch(err => next(new Error("Image deletion failed " + err.message + "")))
             }
         }
 
         for (const image of req.files) {
-        let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
-            folder: `superAdmin/${req.params.page}/${req.params.section}`
-        })
-        section.images.push({
-            public_id,
-            secure_url: secure_url
-        })
+            let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
+                folder: `superAdmin/${req.params.page}/${req.params.section}`
+            })
+            section.images.push({
+                public_id,
+                secure_url: secure_url
+            })
         }
     }
     await section.save()
@@ -164,16 +165,16 @@ export let createSlider = async (req, res, next) => {
         return next(new Error("section already exists"))
     }
 
-    const { arabic, english , title , content } = req.body;
+    const { arabic, english, title, content } = req.body;
     let image = req.file;
     let secure_url, public_id;
     let newSlider = {
-        arabic:{},
-        english:{},
-        image:{}
+        arabic: {},
+        english: {},
+        image: {}
     }
 
-    
+
 
     if (image) {
         let data = await cloudinary.uploader.upload(image.path, {
@@ -198,11 +199,11 @@ export let createSlider = async (req, res, next) => {
         newSlider.english.content = english.content
     }
 
-    if((title.arabic && !title.english )|| (!title.arabic && title.english )){
+    if ((title.arabic && !title.english) || (!title.arabic && title.english)) {
         return next(new Error("arabic and english title is required"))
     }
 
-    if((content.arabic && !content.english )|| (!content.arabic && content.english )){
+    if ((content.arabic && !content.english) || (!content.arabic && content.english)) {
         return next(new Error("arabic and english content is required"))
     }
 
@@ -211,7 +212,7 @@ export let createSlider = async (req, res, next) => {
     let slider = new SliderModel({
         page: req.params.page,
         section: req.params.section,
-        title ,
+        title,
         content,
         slides: [
             newSlider
@@ -308,11 +309,11 @@ export let updateSlider = async (req, res, next) => {
 
     }
 
-    
-    
 
-    if(title) slider.title = title
-    if(content) slider.content = content
+
+
+    if (title) slider.title = title
+    if (content) slider.content = content
 
 
     // await target.save()    
@@ -338,13 +339,13 @@ export let deleteSlide = async (req, res, next) => {
     if (!slider) {
         return next(new Error("section not found"))
     }
-    
-    
-    
+
+
+
 
     let target = slider.slides.find((slide) => {
-       
-        
+
+
         return slide._id.toString() == req.params.slideId
     })
 
