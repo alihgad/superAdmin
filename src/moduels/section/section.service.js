@@ -168,69 +168,79 @@ export const deleteSection = async (req, res, next) => {
 // ------------------------ slider
 
 export let createSlider = async (req, res, next) => {
-    let sliderExists = await SliderModel.findOne({ page: req.params.page, section: req.params.section })
+    try {
+        let sliderExists = await SliderModel.findOne({ 
+            page: req.params.page, 
+            section: req.params.section 
+        }).maxTimeMS(5000);
 
-    if (sliderExists) {
-        return next(new Error("section already exists"))
-    }
+        if (sliderExists) {
+            return next(new Error("section already exists"))
+        }
 
-    const { arabic, english, title, content , text } = req.body;
+        const { arabic, english, title, content , text } = req.body;
 
-    let image = req.file;
-    let secure_url, public_id;
-    let newSlider = {
-        arabic: {},
-        english: {},
-        image: {},
-        text: text?.trim()
-    }
+        let image = req.file;
+        let secure_url, public_id;
+        let newSlider = {
+            arabic: {},
+            english: {},
+            image: {},
+            text: text?.trim()
+        }
 
 
 
-    if (image) {
-        let data = await cloudinary.uploader.upload(image.path, {
-            folder: `superAdmin/${req.params.page}/${req.params.section}/slider`
+        if (image) {
+            let data = await cloudinary.uploader.upload(image.path, {
+                folder: `superAdmin/${req.params.page}/${req.params.section}/slider`
+            })
+            secure_url = data.secure_url
+            public_id = data.public_id
+            newSlider.image = { secure_url, public_id }
+        }
+
+        if (!arabic && !english && !image) {
+            return next(new Error("arabic or english or image is required"))
+        }
+        if (arabic?.title && english?.title) {
+            newSlider.arabic.title = arabic.title
+            newSlider.english.title = english.title
+        }
+
+        if (arabic?.content && english?.content) {
+            newSlider.english = english
+            newSlider.arabic.content = arabic.content
+            newSlider.english.content = english.content
+        }
+
+        if ((title.arabic && !title.english) || (!title.arabic && title.english)) {
+            return next(new Error("arabic and english title is required"))
+        }
+
+        if ((content.arabic && !content.english) || (!content.arabic && content.english)) {
+            return next(new Error("arabic and english content is required"))
+        }
+
+
+
+        let slider = new SliderModel({
+            page: req.params.page,
+            section: req.params.section,
+            title,
+            content,
+            slides: [
+                newSlider
+            ]
         })
-        secure_url = data.secure_url
-        public_id = data.public_id
-        newSlider.image = { secure_url, public_id }
+        await slider.save()
+        return res.status(200).json({ message: `${slider.section} slider added successfully`, slider })
+    } catch (error) {
+        if (error.name === 'MongooseError' && error.message.includes('buffering timed out')) {
+            return next(new Error("Database connection timeout. Please try again."))
+        }
+        return next(error)
     }
-
-    if (!arabic && !english && !image) {
-        return next(new Error("arabic or english or image is required"))
-    }
-    if (arabic?.title && english?.title) {
-        newSlider.arabic.title = arabic.title
-        newSlider.english.title = english.title
-    }
-
-    if (arabic?.content && english?.content) {
-        newSlider.english = english
-        newSlider.arabic.content = arabic.content
-        newSlider.english.content = english.content
-    }
-
-    if ((title.arabic && !title.english) || (!title.arabic && title.english)) {
-        return next(new Error("arabic and english title is required"))
-    }
-
-    if ((content.arabic && !content.english) || (!content.arabic && content.english)) {
-        return next(new Error("arabic and english content is required"))
-    }
-
-
-
-    let slider = new SliderModel({
-        page: req.params.page,
-        section: req.params.section,
-        title,
-        content,
-        slides: [
-            newSlider
-        ]
-    })
-    await slider.save()
-    return res.status(200).json({ message: `${slider.section} slider added successfully`, slider })
 }
 
 export let getSlider = async (req, res, next) => {
