@@ -33,14 +33,24 @@ process.on('SIGINT', async () => {
     process.exit(0);
 });
 
-bootstrab(app);
+// Async function to start the application
+async function startApp() {
+    try {
+        // First, establish database connection
+        await connectDB();
+        console.log("Database connected");
+        
+        // Only after DB is connected, start the server
+        bootstrab(app);
+        
+    } catch (error) {
+        console.log("Database connection failed:", error.message);
+        process.exit(1);
+    }
+}
 
-connectDB().then(() => {
-    console.log("Database connected");
-}).catch((error) => {
-    console.log("Database connection failed:", error.message);
-    process.exit(1); // Exit the process if DB connection fails
-});
+// Start the application
+await startApp();
 
 
 
