@@ -93,7 +93,7 @@ export const getArticle = async (req, res, next) => {
         });
     }
 
-    articleName = articleName.toLowerCase().trim();
+    articleName = articleName.trim();
 
 
 

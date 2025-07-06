@@ -3,8 +3,8 @@ import planModel from "../../DB/models/plan.js";
 
 export const createPlan = async (req, res, next) => {
 
-    let planExists = await planModel.findOne({ "english.name": req.body.english.name.toLowerCase().trim() })
-    let arabicPlanExists = await planModel.findOne({ "arabic.name": req.body.arabic.name.toLowerCase().trim() })
+    let planExists = await planModel.findOne({ "english.name": req.body.english.name.trim() })
+    let arabicPlanExists = await planModel.findOne({ "arabic.name": req.body.arabic.name.trim() })
 
     if (planExists ) {
         return next(new Error("english plan name already exists"))
@@ -29,7 +29,7 @@ export const updatePlan = async (req, res, next) => {
     }
 
     if (english?.name) {
-        let nameExsist = await planModel.findOne({ "english.name": english.name.toLowerCase().trim() })
+        let nameExsist = await planModel.findOne({ "english.name": english.name.trim() })
         if (nameExsist) {
             return next(new Error("plan name already exists"))
         }
@@ -37,7 +37,7 @@ export const updatePlan = async (req, res, next) => {
     }
 
     if (arabic?.name) {
-        let nameExsist = await planModel.findOne({ "arabic.name": arabic.name.toLowerCase().trim() })
+        let nameExsist = await planModel.findOne({ "arabic.name": arabic.name.trim() })
         if (nameExsist) {
             return next(new Error("plan name already exists"))
         }
@@ -68,7 +68,7 @@ export const deletePlan = async (req, res, next) => {
 }
 
 export const getPlan = async (req, res, next) => {
-    let plan = await planModel.findOne({ "english.name": req.params.name.toLowerCase().trim() })
+    let plan = await planModel.findOne({ "english.name": req.params.name.trim() })
     if (!plan) {
         return next(new Error("plan not found"))
     }

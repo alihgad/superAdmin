@@ -17,11 +17,11 @@ export const updateSection = async (req, res, next) => {
         english = JSON.parse(req.body?.english)
     }
 
-    if (arabic?.title) section.arabic.title = arabic.title.trim().toLowerCase()
-    if (arabic?.content) section.arabic.content = arabic.content.trim().toLowerCase()
+    if (arabic?.title) section.arabic.title = arabic.title.trim()
+    if (arabic?.content) section.arabic.content = arabic.content.trim()
 
-    if (english?.title) section.english.title = english.title.trim().toLowerCase()
-    if (english?.content) section.english.content = english.content.trim().toLowerCase()
+    if (english?.title) section.english.title = english.title.trim()
+    if (english?.content) section.english.content = english.content.trim()
     if (req.files?.length > 0) {
 
         if (section.images?.length > 0) {
@@ -295,10 +295,10 @@ export let addToSlider = async (req, res, next) => {
         return next(new Error("wrong slider id"))
     }
 
-    if (arabic?.title) target.arabic.title = arabic.title.trim().toLowerCase()
-    if (arabic?.content) target.arabic.content = arabic.content.trim().toLowerCase()
-    if (english?.title) target.english.title = english.title.trim().toLowerCase()
-    if (english?.content) target.english.content = english.content.trim().toLowerCase()
+    if (arabic?.title) target.arabic.title = arabic.title.trim()
+    if (arabic?.content) target.arabic.content = arabic.content.trim()
+    if (english?.title) target.english.title = english.title.trim()
+    if (english?.content) target.english.content = english.content.trim()
     if (image) {
 
         if (target?.image?.public_id) {

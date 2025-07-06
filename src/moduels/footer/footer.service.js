@@ -16,19 +16,19 @@ export const addLink = async (req, res) => {
 
 
 
-    let existingLink = await footerModel.findOne({ 'english.title': english.title.toLowerCase().trim() });
+    let existingLink = await footerModel.findOne({ 'english.title': english.title.trim() });
     if (existingLink) {
         return res.status(400).json({ message: "Link already exists" });
     }
 console.log(arabic.title)
 
     let newLink = await footerModel.create({
-        category: category.toLowerCase().trim(),
+        category: category.trim(),
         arabic: {
-            title: arabic.title.toLowerCase().trim()
+            title: arabic.title.trim()
         },
         english: {
-            title: english.title.toLowerCase().trim()
+            title: english.title.trim()
         },
         link: link.trim()
     })
@@ -47,9 +47,9 @@ export const updateLink = async (req, res) => {
 
 
     if (link) updatetLink.link = link.trim();
-    if (arabic?.title) updatetLink.arabic.title = arabic?.title?.toLowerCase().trim();
-    if (english?.title) updatetLink.english.title = english?.title?.toLowerCase().trim();
-    if (category) updatetLink.category = category.toLowerCase().trim();
+    if (arabic?.title) updatetLink.arabic.title = arabic?.title?.trim();
+    if (english?.title) updatetLink.english.title = english?.title?.trim();
+    if (category) updatetLink.category = category.trim();
     await updatetLink.save();
     return res.status(200).json({ message: "Link updated successfully", updatetLink });
 }
@@ -85,14 +85,14 @@ export const getAllCatLinks = async (req, res) => {
 export const addSocial = async (req, res) => {
     let { link, icon } = req.body;
 
-    let existingSocial = await socialModel.findOne({ icon: icon.toLowerCase().trim() });
+    let existingSocial = await socialModel.findOne({ icon: icon.trim() });
     if (existingSocial) {
         return res.status(400).json({ message: "Social link already exists" });
     }
 
     let newSocial = await socialModel.create({
-        link: link.toLowerCase().trim(),
-        icon: icon.toLowerCase().trim()
+        link: link.trim(),
+        icon: icon.trim()
     });
 
     return res.status(201).json({ message: "Social link added successfully", newSocial });
@@ -107,13 +107,13 @@ export const updateSocial = async (req, res) => {
         return next(new Error("Social link not found", { cause: 404 }));
     }
 
-    if (link) updatedSocial.link = link.toLowerCase().trim();
+    if (link) updatedSocial.link = link.trim();
     if (icon) {
-        let existingSocial = await socialModel.findOne({ icon: icon.toLowerCase().trim() });
+        let existingSocial = await socialModel.findOne({ icon: icon.trim() });
         if (existingSocial) {
             return res.status(400).json({ message: "Social link already exists" });
         }
-        updatedSocial.icon = icon.toLowerCase().trim();
+        updatedSocial.icon = icon.trim();
     }
     if (display) updatedSocial.display = display;
 
