@@ -39,6 +39,7 @@ export const createSliderSchema = {
     content: joi.object({
       arabic: joi.string().allow("").optional(),
       english: joi.string().allow("").optional(),
-    })
+    }),
+    text: joi.string().allow("").optional()
   })
 };

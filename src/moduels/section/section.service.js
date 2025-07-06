@@ -174,13 +174,15 @@ export let createSlider = async (req, res, next) => {
         return next(new Error("section already exists"))
     }
 
-    const { arabic, english, title, content } = req.body;
+    const { arabic, english, title, content , text } = req.body;
+
     let image = req.file;
     let secure_url, public_id;
     let newSlider = {
         arabic: {},
         english: {},
-        image: {}
+        image: {},
+        text: text?.trim()
     }
 
 
@@ -290,6 +292,7 @@ export let addToSlider = async (req, res, next) => {
     let english = req.body?.english
     let image = req.file;
 
+
     let target = slider.slides.find((slide) => slide._id == req.params.slideId)
     if (!target) {
         return next(new Error("wrong slider id"))
@@ -299,6 +302,7 @@ export let addToSlider = async (req, res, next) => {
     if (arabic?.content) target.arabic.content = arabic.content.trim()
     if (english?.title) target.english.title = english.title.trim()
     if (english?.content) target.english.content = english.content.trim()
+    
     if (image) {
 
         if (target?.image?.public_id) {
@@ -332,8 +336,10 @@ export let updateSlider = async (req, res, next) => {
     if(!slider){
         return next(new Error("section not found"))
     }
-    console.log(req.body)
-    console.log(slider)
+
+    if(req.body?.text){
+        slider.text = req.body?.text.trim()
+    }
     
     
     if(req.body?.title){
@@ -347,6 +353,8 @@ export let updateSlider = async (req, res, next) => {
         if(content.arabic) slider.content.arabic = content.arabic.trim()
         if(content.english) slider.content.english = content.english.trim()
     }
+
+
 
 
     await slider.save()

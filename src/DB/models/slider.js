@@ -32,7 +32,7 @@ const SliderSchema = new mongoose.Schema({
                 },
                 content: {
                     type: String
-                },
+                }
             },
             english: {
                 title: {
@@ -41,12 +41,14 @@ const SliderSchema = new mongoose.Schema({
                 },
                 content: {
                     type: String
-                },
-            }
-            ,
+                }
+            },
             image: {
                 public_id: String,
                 secure_url: String
+            },
+            text:{
+                type: String
             }
         }
     ]
