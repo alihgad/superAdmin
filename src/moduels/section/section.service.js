@@ -335,15 +335,18 @@ export let updateSlider = async (req, res, next) => {
     if(!slider){
         return next(new Error("section not found"))
     }
-
+    console.log(req.body)
+    console.log(slider)
+    
+    
     if(req.body?.title){
-        let title = JSON.parse(req.body?.title)
+        let title = req.body?.title
         if(title.arabic) slider.title.arabic = title.arabic.trim()
         if(title.english) slider.title.english = title.english.trim()
     }
 
     if(req.body?.content){
-        let content = JSON.parse(req.body?.content)
+        let content = req.body?.content
         if(content.arabic) slider.content.arabic = content.arabic.trim()
         if(content.english) slider.content.english = content.english.trim()
     }
