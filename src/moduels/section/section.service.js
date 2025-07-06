@@ -1,7 +1,7 @@
 import { cloudinaryUpload as cloudinary } from "../../middelWares/multer.js"
 import sectionModel from "../../DB/models/section.js"
 import SliderModel from "../../DB/models/slider.js"
-import mongoose from "mongoose"
+
 
 export const updateSection = async (req, res, next) => {
     let section = await sectionModel.findOne({ section: req.params.section, page: req.params.page })
@@ -282,7 +282,7 @@ export let addToSlider = async (req, res, next) => {
     return res.status(200).json({ message: `${slider.section} slider added successfully`, slider })
 }
 
-export let updateSlider = async (req, res, next) => {
+    export let updateSlide = async (req, res, next) => {
     let slider = await SliderModel.findOne({ page: req.params.page, section: req.params.section })
     if (!slider) {
         return next(new Error("section not found"))
@@ -290,11 +290,9 @@ export let updateSlider = async (req, res, next) => {
 
     let arabic = req.body?.arabic
     let english = req.body?.english
-    let title = req.body?.title
-    let content = req.body?.content
     let image = req.file;
 
-    let target = slider.slides.find((slide) => slide._id == req.params.sliderId)
+    let target = slider.slides.find((slide) => slide._id == req.params.slideId)
     if (!target) {
         return next(new Error("wrong slider id"))
     }
@@ -330,6 +328,30 @@ export let updateSlider = async (req, res, next) => {
     // await target.save()    
     await slider.save()
     return res.status(200).json({ message: `${slider.section} slider updated successfully`, slider })
+}
+
+export let updateSlider = async (req, res, next) => {
+    let slider = await SliderModel.findById(req.params.sliderId)
+    if(!slider){
+        return next(new Error("section not found"))
+    }
+
+    if(req.body?.title){
+        let title = JSON.parse(req.body?.title)
+        if(title.arabic) slider.title.arabic = title.arabic.trim()
+        if(title.english) slider.title.english = title.english.trim()
+    }
+
+    if(req.body?.content){
+        let content = JSON.parse(req.body?.content)
+        if(content.arabic) slider.content.arabic = content.arabic.trim()
+        if(content.english) slider.content.english = content.english.trim()
+    }
+
+
+    await slider.save()
+    return res.status(200).json({ message: `${slider.section} slider updated successfully`, slider })
+
 }
 
 export let deleteSlider = async (req, res, next) => {
