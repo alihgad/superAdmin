@@ -8,20 +8,29 @@ export const updateSection = async (req, res, next) => {
     if (!section) {
         return next(new Error("wrong section name"))
     }
-    const { arabic, english } = req.body;
+    let arabic = {}
+    let english = {}
+    if (req.body?.arabic) {
+        arabic = JSON.parse(req.body?.arabic)
+    }
+    if (req.body?.english) {
+        english = JSON.parse(req.body?.english)
+    }
 
     if (arabic?.title) section.arabic.title = arabic.title.trim().toLowerCase()
     if (arabic?.content) section.arabic.content = arabic.content.trim().toLowerCase()
+
     if (english?.title) section.english.title = english.title.trim().toLowerCase()
     if (english?.content) section.english.content = english.content.trim().toLowerCase()
     if (req.files) {
 
         if (section.images?.length > 0) {
             for (const image of section.images) {
-                await cloudinary.uploader.destroy(image.public_id).catch(err => next(new Error("Image deletion failed " + err.message + "")))
+                await cloudinary.uploader.destroy(image.public_id).then(() => {
+                    section.images = []
+                }).catch(err => next(new Error("Image deletion failed " + err.message + "")))
             }
 
-            section.images = []
         }
 
         for (const image of req.files) {
