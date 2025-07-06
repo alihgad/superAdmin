@@ -65,7 +65,7 @@ export const addImagesToSection = async (req, res, next) => {
         })
     }
     await section.save()
-    return res.status(200).json({ message: `${section.section} section images updated successfully` , section })
+    return res.status(200).json({ message: `${section.section} section images updated successfully`, section })
 }
 
 export const removeImageFromSection = async (req, res, next) => {
@@ -169,16 +169,16 @@ export const deleteSection = async (req, res, next) => {
 
 export let createSlider = async (req, res, next) => {
     try {
-        let sliderExists = await SliderModel.findOne({ 
-            page: req.params.page, 
-            section: req.params.section 
+        let sliderExists = await SliderModel.findOne({
+            page: req.params.page,
+            section: req.params.section
         }).maxTimeMS(5000);
 
         if (sliderExists) {
             return next(new Error("section already exists"))
         }
 
-        const { arabic, english, title, content , text } = req.body;
+        const { arabic, english, title, content, text } = req.body;
 
         let image = req.file;
         let secure_url, public_id;
@@ -267,7 +267,7 @@ export let addToSlider = async (req, res, next) => {
         return next(new Error("section not found"))
     }
 
-   
+
     let text = req.body?.text
     let arabic = req.body?.arabic
     let english = req.body?.english
@@ -296,7 +296,7 @@ export let addToSlider = async (req, res, next) => {
     return res.status(200).json({ message: `${slider.section} slider added successfully`, slider })
 }
 
-    export let updateSlide = async (req, res, next) => {
+export let updateSlide = async (req, res, next) => {
     let slider = await SliderModel.findOne({ page: req.params.page, section: req.params.section })
     if (!slider) {
         return next(new Error("section not found"))
@@ -336,32 +336,29 @@ export let addToSlider = async (req, res, next) => {
     }
 
 
-   
+
     await slider.save()
     return res.status(200).json({ message: `${slider.section} slider updated successfully`, slider })
 }
 
 export let updateSlider = async (req, res, next) => {
     let slider = await SliderModel.findById(req.params.sliderId)
-    if(!slider){
+    if (!slider) {
         return next(new Error("section not found"))
     }
 
-    
-    
-    if(req.body?.title){
-        let title = req.body?.title
-        if(title.arabic) slider.title.arabic = title.arabic.trim()
-        if(title.english) slider.title.english = title.english.trim()
-    }
-
-    if(req.body?.content){
-        let content = req.body?.content
-        if(content.arabic) slider.content.arabic = content.arabic.trim()
-        if(content.english) slider.content.english = content.english.trim()
-    }
+    let title = req.body?.title
+    let content = req.body?.content
 
 
+
+
+    if (title?.arabic) slider.title.arabic = title.arabic.trim()
+    if (title?.english) slider.title.english = title.english.trim()
+
+
+    if (content?.arabic) slider.content.arabic = content.arabic.trim()
+    if (content?.english) slider.content.english = content.english.trim()
 
 
     await slider.save()
