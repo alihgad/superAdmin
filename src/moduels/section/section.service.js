@@ -65,7 +65,7 @@ export const addImagesToSection = async (req, res, next) => {
         })
     }
     await section.save()
-    return res.status(200).json({ message: `${section.section} section images updated successfully` })
+    return res.status(200).json({ message: `${section.section} section images updated successfully` , section })
 }
 
 export const removeImageFromSection = async (req, res, next) => {
