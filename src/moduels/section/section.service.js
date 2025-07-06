@@ -267,7 +267,10 @@ export let addToSlider = async (req, res, next) => {
         return next(new Error("section not found"))
     }
 
-    const { arabic, english } = req.body;
+   
+    let text = req.body?.text
+    let arabic = req.body?.arabic
+    let english = req.body?.english
     let image = req.file;
     let secure_url, public_id;
 
@@ -286,7 +289,8 @@ export let addToSlider = async (req, res, next) => {
         image: {
             secure_url,
             public_id
-        }
+        },
+        text: text?.trim()
     })
     await slider.save()
     return res.status(200).json({ message: `${slider.section} slider added successfully`, slider })
