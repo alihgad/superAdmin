@@ -22,16 +22,14 @@ export const updateSection = async (req, res, next) => {
 
     if (english?.title) section.english.title = english.title.trim().toLowerCase()
     if (english?.content) section.english.content = english.content.trim().toLowerCase()
-    if (req.files) {
+    if (req.files?.length > 0) {
 
         if (section.images?.length > 0) {
             for (const image of section.images) {
-                await cloudinary.uploader.destroy(image.public_id).then(() => {
-                    section.images = []
-                }).catch(err => next(new Error("Image deletion failed " + err.message + "")))
+                await cloudinary.uploader.destroy(image.public_id).catch(err => next(new Error("Image deletion failed " + err.message + "")))
             }
-
         }
+        section.images = []
 
         for (const image of req.files) {
             let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
@@ -324,8 +322,7 @@ export let addToSlider = async (req, res, next) => {
     if (title) slider.title = title
     if (content) slider.content = content
 
-
-    // await target.save()    
+   
     await slider.save()
     return res.status(200).json({ message: `${slider.section} slider updated successfully`, slider })
 }
