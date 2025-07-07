@@ -343,13 +343,13 @@ export let updateSlide = async (req, res, next) => {
 
 export let updateSlider = async (req, res, next) => {
 
-    if (typeof req.body.title === 'string') {
-        req.body.title = JSON.parse(req.body.title)
+    if (typeof req.body?.title === 'string') {
+        req.body.title = JSON.parse(req.body?.title)
     }
-    if (typeof req.body.content === 'string') {
-        req.body.content = JSON.parse(req.body.content)
+    if (typeof req.body?.content === 'string') {
+        req.body.content = JSON.parse(req.body?.content)
     }
-    console.log(req.body)
+    console.log(typeof req.body)
 
 
     let slider = await SliderModel.findById(req.params.sliderId)
