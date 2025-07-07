@@ -342,7 +342,7 @@ export let updateSlide = async (req, res, next) => {
 }
 
 export let updateSlider = async (req, res, next) => {
-console.log(typeof req.body.title , "before)
+console.log(typeof req.body.title , "before")
     if (typeof req.body?.title === 'string') {
         req.body.title = JSON.parse(req.body?.title)
     }
