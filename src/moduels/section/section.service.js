@@ -349,7 +349,6 @@ export let updateSlider = async (req, res, next) => {
     if (typeof req.body.content === 'string') {
         req.body.content = JSON.parse(req.body.content)
     }
-    console.log(req.body)
 
 
     let slider = await SliderModel.findById(req.params.sliderId)
@@ -360,15 +359,14 @@ export let updateSlider = async (req, res, next) => {
     let title = req.body?.title
     let content = req.body?.content
 
+    console.log(slider)
+    
 
+    if (title?.arabic) slider.title.arabic = title.arabic
+    if (title?.english) slider.title.english = title.english
 
-
-    if (title?.arabic) slider.title.arabic = title.arabic.trim()
-    if (title?.english) slider.title.english = title.english.trim()
-
-
-    if (content?.arabic) slider.content.arabic = content.arabic.trim()
-    if (content?.english) slider.content.english = content.english.trim()
+    if (content?.arabic) slider.content.arabic = content.arabic
+    if (content?.english) slider.content.english = content.english
 
 
     await slider.save()
