@@ -8,29 +8,23 @@ const testimonialSchema = new mongoose.Schema({
     arabic: {
         text: {
             type: String,
-            required: true,
         },
         name: {
             type: String,
-            required: true,
         },
         company: {
             type: String,
-            required: true,
         }
     },
     english: {
         text: {
             type: String,
-            required: true,
         },
         name: {
             type: String,
-            required: true,
         },
         company: {
             type: String,
-            required: true,
         }
     }
 });
