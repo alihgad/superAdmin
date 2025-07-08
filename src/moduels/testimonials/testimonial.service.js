@@ -2,7 +2,7 @@ import { testimonialModel } from '../../DB/models/testimonials.js';
 import {v2 as cloudinary} from "cloudinary"
 // Create testimonial
 export async function createTestimonial(req, res) {
-  const { arabic , english} = req.body;
+  let { arabic , english} = req.body;
   if(typeof arabic == "string") arabic = JSON.parse(arabic);
   if(typeof english == "string") english = JSON.parse(english);
   if(req.file){
