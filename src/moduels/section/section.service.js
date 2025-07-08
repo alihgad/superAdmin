@@ -342,7 +342,7 @@ export let updateSlide = async (req, res, next) => {
 }
 
 export let updateSlider = async (req, res, next) => {
-console.log(typeof req.body.title.arabic , "before")
+
     if (typeof req.body?.title === 'string') {
         req.body.title = JSON.parse(req.body?.title)
     }
@@ -363,11 +363,23 @@ console.log(typeof req.body.title.arabic , "before")
     
     console.log(typeof title , "title")
     
-    if (title?.arabic) slider.title.arabic = title.arabic
-    if (title?.english) slider.title.english = title.english
+    if (title?.arabic) {
+        slider.title = {}
+        slider.title.arabic = title.arabic
+    }
+    if (title?.english) {
+        slider.title = {}
+        slider.title.english = title.english
+    }
 
-    if (content?.arabic) slider.content.arabic = content.arabic
-    if (content?.english) slider.content.english = content.english
+    if (content?.arabic) {
+        slider.content = {}
+        slider.content.arabic = content.arabic
+    }
+    if (content?.english) {
+        slider.content = {}
+        slider.content.english = content.english
+    }
 
 
     await slider.save()
