@@ -359,25 +359,23 @@ export let updateSlider = async (req, res, next) => {
     let title = req.body?.title
     let content = req.body?.content
 
-    console.log(slider , "slider")
-    
-    console.log(typeof title , "title")
-    
+    console.log(slider, "slider")
+
+    console.log(typeof title, "title")
+
     if (title?.arabic) {
-        slider.title = {}
+
         slider.title.arabic = title.arabic
     }
     if (title?.english) {
-        slider.title = {}
         slider.title.english = title.english
     }
 
     if (content?.arabic) {
-        slider.content = {}
+
         slider.content.arabic = content.arabic
     }
     if (content?.english) {
-        slider.content = {}
         slider.content.english = content.english
     }
 
