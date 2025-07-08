@@ -21,7 +21,7 @@ export async function createTestimonial(req, res) {
 // Update testimonial
 export async function updateTestimonial(req, res, next) {
   const { id } = req.params;
-  const { arabic , english } = req.body;
+  let { arabic , english } = req.body;
   if(typeof arabic == "string") arabic = JSON.parse(arabic);
   if(typeof english == "string") english = JSON.parse(english);
   let testimonial = await testimonialModel.findById(id);
