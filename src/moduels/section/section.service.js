@@ -359,9 +359,10 @@ console.log(typeof req.body.title.arabic , "before")
     let title = req.body?.title
     let content = req.body?.content
 
-    console.log(slider)
+    console.log(slider , "slider")
     
-
+    console.log(typeof title , "title")
+    
     if (title?.arabic) slider.title.arabic = title.arabic
     if (title?.english) slider.title.english = title.english
 
