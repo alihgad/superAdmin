@@ -14,13 +14,15 @@ const SliderSchema = new mongoose.Schema({
     },
 
     title: {
-        arabic: String,
-        english: String
+        arabic: {
+            type: String
+        } ,
+        english: {type:String}
     },
 
     content: {
-        arabic: String,
-        english: String
+        arabic: {type:String},
+        english: {type:String}
     },
 
     slides: [
