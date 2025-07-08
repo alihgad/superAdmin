@@ -5,15 +5,17 @@ export async function createTestimonial(req, res) {
   let { arabic , english} = req.body;
   if(typeof arabic == "string") arabic = JSON.parse(arabic);
   if(typeof english == "string") english = JSON.parse(english);
+  let image;
   if(req.file){
-  let {public_id, secure_url} = await cloudinary.uploader.upload(req.file.path, {
-    folder: 'superAdmin/testimonials'
-  })
+    let {public_id, secure_url} = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'superAdmin/testimonials'
+    })
+    image = {public_id, secure_url}
   }
   const testimonial = await testimonialModel.create({
     arabic ,
     english,
-    image: {public_id, secure_url}
+    image
   });
   return res.status(201).json({ message: 'Testimonial created', testimonial });
 }
