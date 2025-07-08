@@ -5,33 +5,33 @@ const testimonialSchema = new mongoose.Schema({
         public_id: String,
         secure_url: String
     },
-    arabic:{
-    text: {
-        type: String,
-        required: true,
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-    company: {
-        type: String,
-        required: true,
-    }
-    },
-    English:{
+    arabic: {
         text: {
-        type: String,
-        required: true,
+            type: String,
+            required: true,
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+        company: {
+            type: String,
+            required: true,
+        }
     },
-    name: {
-        type: String,
-        required: true,
-    },
-    company: {
-        type: String,
-        required: true,
-    }
+    english: {
+        text: {
+            type: String,
+            required: true,
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+        company: {
+            type: String,
+            required: true,
+        }
     }
 });
 

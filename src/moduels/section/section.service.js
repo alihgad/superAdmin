@@ -180,6 +180,13 @@ export let createSlider = async (req, res, next) => {
 
         const { arabic, english, title, content, text } = req.body;
 
+        if(typeof title === 'string') {
+            title = JSON.parse(title)
+        }
+        if(typeof content === 'string') {
+            content = JSON.parse(content)
+        }
+
         let image = req.file;
         let secure_url, public_id;
         let newSlider = {
