@@ -309,7 +309,7 @@ export let updateSlide = async (req, res, next) => {
         return next(new Error("section not found"))
     }
 
-    consloe.log(req.body)
+    console.log(req.body)
     if ( typeof req.body?.arabic == "string") {
         req.body.arabic = JSON.parse(req.body.arabic)
     }
