@@ -308,7 +308,12 @@ export let updateSlide = async (req, res, next) => {
     if (!slider) {
         return next(new Error("section not found"))
     }
-
+    if ( typeof req.body?.arabic == "string") {
+        req.body.arabic = JSON.parse(req.body.arabic)
+    }
+    if ( typeof req.body?.english == "string") {
+        req.body.english = JSON.parse(req.body.english)
+    }
     let arabic = req.body?.arabic
     let english = req.body?.english
     let image = req.file;
