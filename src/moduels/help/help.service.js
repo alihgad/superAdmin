@@ -104,10 +104,14 @@ export const getArticle = async (req, res, next) => {
 
 export const updateArticle = async (req, res, next) => {
     let { id } = req.params;
+
+    
     let { arabic, english, article } = req.body;
 
 
     let articleToUpdate = await helpModel.findById(id);
+
+    
     if (!articleToUpdate) {
         return next(new Error("Article not found"), {
             statusCode: 404,
@@ -197,7 +201,8 @@ export const updateArticle = async (req, res, next) => {
         }
     }
 
-
+    console.log("articleToUpdate",articleToUpdate)
+    
     await articleToUpdate.save();
     return res.status(200).json({
         message: "Article updated successfully",

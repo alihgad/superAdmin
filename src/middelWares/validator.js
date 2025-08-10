@@ -32,12 +32,18 @@ export default (schema) => (req, res, next) => {
       errors.push(error.message)
     }
 
-    if (errors.length > 0) {
-      res.status(500).json({ errors })
-    } else {
-      next()
-    }
   })
+
+
+  if (errors.length > 0) {
+    console.log("errors", errors)
+
+    return res.status(500).json({ errors })
+  } else {
+    console.log("next")
+
+    next()
+  }
 }
 
 

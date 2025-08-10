@@ -20,7 +20,7 @@ export default (app) => {
 
     // Error handling middleware (should be last)
     app.use((req, res, next) => {
-        return res.status(404).json({message: "Not Found"});
+        return res.status(404).json({message: "router Not Found"});
     });
 
     app.use((error, req, res, next) => {
