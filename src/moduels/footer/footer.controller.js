@@ -9,7 +9,7 @@ let footerRouter = Router()
 
 footerRouter.post("/social",validate(schemas.addSocialSchema), asyncHandler(fs.addSocial)) 
 footerRouter.put("/social/:id" ,validate(schemas.updateSocialSchema), asyncHandler(fs.updateSocial)) 
-footerRouter.delete("/social/:id", validate(schemas.deleteSocialMedia),  asyncHandler(fs.deleteSocial)) 
+footerRouter.delete("/social/:id", validate(schemas.deleteSocialMediaSchema),  asyncHandler(fs.deleteSocial)) 
 footerRouter.get("/social", asyncHandler(fs.getAllSocial))
 
 footerRouter.post("/:category", validate(schemas.addLinkSchema) ,asyncHandler(fs.addLink))
