@@ -3,6 +3,7 @@ import planRouter from "./src/moduels/plans/plan.controller.js";
 import helpRouter from "./src/moduels/help/help.controller.js";
 import footerRouter from "./src/moduels/footer/footer.controller.js";
 import testimonialRouter from "./src/moduels/testimonials/testimonial.controller.js";
+import blogRouter from "./src/moduels/blog/blog.controller.js";
 
 export default (app) => {
     // Setup routes
@@ -17,6 +18,7 @@ export default (app) => {
     app.use("/help", helpRouter);
     app.use("/footer", footerRouter);
     app.use("/testimonials", testimonialRouter);
+    app.use("/blog", blogRouter);
 
     // Error handling middleware (should be last)
     app.use((req, res, next) => {
