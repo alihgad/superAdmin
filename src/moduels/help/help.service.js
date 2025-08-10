@@ -85,19 +85,10 @@ export const getAllArticles = async (req, res, next) => {
 
 
 export const getArticle = async (req, res, next) => {
-    let { articleName } = req.params;
-    if (!articleName || typeof articleName !== "string") {
-        return next(new Error("Article iname is required"), {
-            statusCode: 400,
-            message: "Article name is required"
-        });
-    }
-
-    articleName = articleName.trim();
+    let { id } = req.params;
 
 
-
-    let article = await helpModel.findOne({ article: articleName }).select("-__v -createdAt -updatedAt");
+    let article = await helpModel.findById(id).select("-__v");
     if (!article) {
         return next(new Error("Article not found"), {
             statusCode: 404,
@@ -113,7 +104,7 @@ export const getArticle = async (req, res, next) => {
 
 export const updateArticle = async (req, res, next) => {
     let { id } = req.params;
-    let { arabic, english } = req.body;
+    let { arabic, english, article } = req.body;
 
 
     let articleToUpdate = await helpModel.findById(id);
@@ -124,19 +115,36 @@ export const updateArticle = async (req, res, next) => {
         });
     }
 
-    if (arabic?.title && english?.title) {
+    if (arabic?.title ) {
         articleToUpdate.arabic.title = arabic.title
+    }
+
+    if (english?.title) {
         articleToUpdate.english.title = english.title
     }
 
-    if (arabic?.content && english?.content) {
+    if (arabic?.content) {
         articleToUpdate.arabic.content = arabic.content
+    }
+
+    if (english?.content) {
         articleToUpdate.english.content = english.content
     }
 
-    if (arabic?.steps && english?.steps) {
+    if (arabic?.steps) {
         articleToUpdate.arabic.steps = arabic.steps
+    }
+
+    if (english?.steps) {
         articleToUpdate.english.steps = english.steps
+    }
+
+    if (article?.arabic) {
+        articleToUpdate.article.arabic = article.arabic
+    }
+
+    if (article?.english) {
+        articleToUpdate.article.english = article.english
     }
 
 

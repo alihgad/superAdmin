@@ -10,8 +10,8 @@ const sectionRouter = Router();
 
 sectionRouter.post("/slider/:page/:section", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.createSlider))
 sectionRouter.put("/updateslider/:sliderId", asyncHandler(ss.updateSlider))
-sectionRouter.put("/slider/:sliderId", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.addToSlider))
-sectionRouter.patch("/slider/:page/:section/:slideId", multerUpload.single("image") , asyncHandler(ss.updateSlide))
+sectionRouter.put("/slider/addtoslider/:sliderId", multerUpload.single("image"), validator(schemas.createSliderSchema) , asyncHandler(ss.addToSlider))
+sectionRouter.patch("/slider/updateoneslide/:page/:section/:slideId", multerUpload.single("image") , asyncHandler(ss.updateSlide))
 sectionRouter.delete("/slider/:sliderId", asyncHandler(ss.deleteSlider))
 sectionRouter.delete("/slider/:page/:section/:slideId", asyncHandler(ss.deleteSlide))
 sectionRouter.get("/slider/:page", asyncHandler(ss.getAllSlider))

@@ -5,8 +5,12 @@ import mongoose from "mongoose";
 
 const helpSchema = new mongoose.Schema({
     article: {
-        type: String,
-        required: true
+        arabic: {
+            type: String
+        },
+        english: {
+            type: String
+        }
     },
     arabic: {
         title: {
@@ -18,7 +22,7 @@ const helpSchema = new mongoose.Schema({
         steps: [
             {
                 type: String,
-                required: true
+
             }
         ]
     }
@@ -33,7 +37,7 @@ const helpSchema = new mongoose.Schema({
         steps: [
             {
                 type: String,
-                required: true
+
             }
         ]
     }
@@ -42,22 +46,18 @@ const helpSchema = new mongoose.Schema({
     image: {
         public_id: {
             type: String,
-            required: true
         },
         secure_url: {
             type: String,
-            required: true
         }
     },
 
     vedio: {
         public_id: {
             type: String,
-            required: true
         },
         secure_url: {
             type: String,
-            required: true
         }
     }
 

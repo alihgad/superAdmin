@@ -10,6 +10,16 @@ export const updateArticleSchema = {
   }),
 
   body: Joi.object({
+    article: Joi.object({
+      arabic: Joi.string().trim().required().messages({
+        "any.required": "Arabic article is required",
+        "string.base": "Arabic article must be a string"
+      }),
+      english: Joi.string().trim().required().messages({
+        "any.required": "English article is required",
+        "string.base": "English article must be a string"
+      })
+    }),
     arabic: Joi.object({
       title: Joi.string().min(3).messages({
         "string.min": "Arabic title must be at least 3 characters",
@@ -49,12 +59,15 @@ export const updateArticleSchema = {
 
 export const addArticleSchema = {
   body: Joi.object({
-    article: Joi.string()
-      .trim()
-      .required()
-      .messages({
-        'any.required': 'Article is required',
-        'string.base': 'Article must be a string',
+    article: Joi.object({
+      arabic: Joi.string().trim().required().messages({
+        'any.required': 'Arabic article is required',
+        'string.base': 'Arabic article must be a string',
+      }),
+      english: Joi.string().trim().required().messages({
+        'any.required': 'English article is required',
+        'string.base': 'English article must be a string',
+      })
       }),
 
     arabic: Joi.object({
@@ -125,12 +138,6 @@ export const deleteArticleSchema = {
 
 export const getArticleSchema = {
   params: Joi.object({
-    articleName: Joi.string()
-      .trim()
-      .required()
-      .messages({
-        "any.required": "Article name is required",
-        "string.base": "Article name must be a string"
-      })
+    id: globalFields.id
   })
 }
