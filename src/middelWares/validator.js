@@ -20,6 +20,10 @@ export default (schema) => (req, res, next) => {
     req.body.english = JSON.parse(req.body.english)
   }
 
+  if (req.body?.article && typeof req.body.article === 'string') {
+    req.body.article = JSON.parse(req.body.article)
+  }
+
   let keys = Object.keys(schema)
   let errors = []
   keys.forEach(key => {
