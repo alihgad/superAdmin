@@ -51,9 +51,10 @@ export const updateArticleSchema = {
   })
   ,
   files: Joi.object({
-    image: globalFields.file,
-    vedio: globalFields.file,
-  })
+    image: Joi.array().items(globalFields.file).required(),
+    cover: Joi.array().items(globalFields.file).required(),
+    vedio: Joi.array().items(globalFields.file).required(),
+  }).optional()
 
 };
 
@@ -120,8 +121,9 @@ export const addArticleSchema = {
 
   files: Joi.object({
     image: Joi.array().items(globalFields.file).required(),
+    cover: Joi.array().items(globalFields.file).required(),
     vedio: Joi.array().items(globalFields.file).required(),
-  }).required()
+  }).optional()
 };
 
 export const deleteArticleSchema = {

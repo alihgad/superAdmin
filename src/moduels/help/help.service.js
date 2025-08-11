@@ -19,11 +19,34 @@ export const addArticle = async (req, res, next) => {
         };
     }
 
+    let uploadCover = async () => {
+        let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.cover[0].path, {
+            folder: `superAdmin/help/articles/${article}`,
+            resource_type: "image"
+        }).catch((error) => next(new Error("Cover upload failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }));
+
+        return {
+            public_id: public_id,
+            secure_url: secure_url
+        };
+    }
+
     let image = await uploadImage();
     if (!image) {
         return next(new Error("Image upload failed"), {
             statusCode: 500,
             message: "Image upload failed"
+        });
+    }
+
+    let cover = await uploadCover();
+    if (!cover) {
+        return next(new Error("Cover upload failed"), {
+            statusCode: 500,
+            message: "Cover upload failed"
         });
     }
 
@@ -55,6 +78,7 @@ export const addArticle = async (req, res, next) => {
         arabic,
         english,
         image,
+        cover,
         vedio
     });
 
@@ -163,7 +187,7 @@ export const updateArticle = async (req, res, next) => {
         }
 
 
-        let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
+        let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.image[0].path, {
             folder: `superAdmin/help/articles/${articleToUpdate.article}`,
             resource_type: "image"
         }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
@@ -172,6 +196,30 @@ export const updateArticle = async (req, res, next) => {
         }))
 
         articleToUpdate.image = {
+            public_id: public_id,
+            secure_url: secure_url
+        }
+    }
+
+    if (req.files?.cover?.length > 0) {
+        if (articleToUpdate.cover?.public_id) {
+            await cloudinary.uploader.destroy(articleToUpdate.cover.public_id, {
+                resource_type: "image"
+            }).catch((error) => next(new Error("Cover deletion failed " + error.message + ""), {
+                statusCode: 500,
+                message: error.message
+            }));
+        }
+
+        let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.cover[0].path, {
+            folder: `superAdmin/help/articles/${articleToUpdate.article}`,
+            resource_type: "image"
+        }).catch((error) => next(new Error("Cover upload failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }))
+
+        articleToUpdate.cover = {
             public_id: public_id,
             secure_url: secure_url
         }
@@ -187,7 +235,7 @@ export const updateArticle = async (req, res, next) => {
             }));
         }
 
-        let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
+        let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.vedio[0].path, {
             folder: `superAdmin/help/articles/${articleToUpdate.article}`,
             resource_type: "vedio"
         }).catch((error) => next(new Error("vedio upload failed " + error.message + ""), {
@@ -227,6 +275,15 @@ export const deleteArticle = async (req, res, next) => {
         await cloudinary.uploader.destroy(articleToDelete.image.public_id, {
             resource_type: "image"
         }).catch((error) => next(new Error("Image deletion failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }));
+    }
+
+    if(articleToDelete.cover?.public_id){
+        await cloudinary.uploader.destroy(articleToDelete.cover.public_id, {
+            resource_type: "image"
+        }).catch((error) => next(new Error("Cover deletion failed " + error.message + ""), {
             statusCode: 500,
             message: error.message
         }));

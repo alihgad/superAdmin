@@ -52,6 +52,15 @@ const helpSchema = new mongoose.Schema({
         }
     },
 
+    cover: {
+        public_id: {
+            type: String,
+        },
+        secure_url: {
+            type: String,
+        }
+    },
+
     vedio: {
         public_id: {
             type: String,
