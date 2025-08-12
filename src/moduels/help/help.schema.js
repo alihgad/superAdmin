@@ -11,11 +11,11 @@ export const updateArticleSchema = {
 
   body: Joi.object({
     article: Joi.object({
-      arabic: Joi.string().trim().required().messages({
+      arabic: Joi.string().trim().messages({
         "any.required": "Arabic article is required",
         "string.base": "Arabic article must be a string"
       }),
-      english: Joi.string().trim().required().messages({
+      english: Joi.string().trim().messages({
         "any.required": "English article is required",
         "string.base": "English article must be a string"
       })
@@ -51,15 +51,15 @@ export const updateArticleSchema = {
   })
   ,
   files: Joi.object({
-    image: Joi.array().items(globalFields.file).required(),
-    cover: Joi.array().items(globalFields.file).required(),
-    vedio: Joi.array().items(globalFields.file).required(),
+    image: Joi.array().items(globalFields.file),
+    cover: Joi.array().items(globalFields.file),
+    vedio: Joi.array().items(globalFields.file),
   }).optional()
 
 };
 
 export const addArticleSchema = {
-  body: Joi.object({
+  body: Joi.object({  
     article: Joi.object({
       arabic: Joi.string().trim().required().messages({
         'any.required': 'Arabic article is required',
@@ -120,9 +120,9 @@ export const addArticleSchema = {
   }),
 
   files: Joi.object({
-    image: Joi.array().items(globalFields.file).required(),
-    cover: Joi.array().items(globalFields.file).required(),
-    vedio: Joi.array().items(globalFields.file).required(),
+    image: Joi.array().items(globalFields.file),
+    cover: Joi.array().items(globalFields.file),
+    vedio: Joi.array().items(globalFields.file),
   }).optional()
 };
 
