@@ -17,7 +17,7 @@ export const cloudinaryUpload = cloudinary;
 const storage = multer.diskStorage({})
 const fileFilter = function (req, file, cb) {
 
-    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/svg+xml', "video/mp4", "video/webm", "video/ogg", "video/3gpp", "video/3gpp2", "video/3gpp-tt"];
+    const allowedMimeTypes = ['image/jpeg', 'image/svg+xml' ,'image/png', 'image/jpg', "video/mp4", "video/webm", "video/ogg", "video/3gpp", "video/3gpp2", "video/3gpp-tt"];
    // if (allowedMimeTypes.includes(file.mimetype)) {
          cb(null, true)
    // }
