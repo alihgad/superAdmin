@@ -24,7 +24,7 @@ const fileFilter = function (req, file, cb) {
    // cb(new Error("file not supported"), 500)
 }
 
-export const upload = multer({ storage, fileFilter })
+export const upload = multer({ storage })
 
 
 export default upload;
