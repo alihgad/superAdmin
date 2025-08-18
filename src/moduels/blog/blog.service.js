@@ -41,6 +41,7 @@ export const addBlog = async (req, res, next) => {
 
 export const getAllBlogs = async (req, res, next) => {
     let blogs = await blogModel.find({}).select("-__v");
+    console.log(blogs)
     if (!blogs || blogs.length === 0) {
         return res.status(404).json({
             message: "No blogs found"
@@ -72,6 +73,8 @@ export const getBlog = async (req, res, next) => {
 
 export const updateBlogSection = async (req, res, next) => {
     let { blogId, sectionId } = req.params;
+    console.log(req.body)
+
     let { title, content } = req.body;
 
     let blog = await blogModel.findById(blogId).select("-__v");
@@ -108,7 +111,7 @@ export const updateBlogSection = async (req, res, next) => {
 
 export const updateBlog = async (req, res, next) => {
     let { id } = req.params;
-    let { text, sections } = req.body;
+    let { text } = req.body;
 
     let blogToUpdate = await blogModel.findById(id);
     if (!blogToUpdate) {
@@ -122,11 +125,9 @@ export const updateBlog = async (req, res, next) => {
         blogToUpdate.text = text;
     }
 
-    if (sections) {
-        blogToUpdate.sections = sections;
-    }
+   
 
-    if (req.files?.image?.length > 0) {
+    if (req?.file) {
         if (blogToUpdate.image?.public_id) {
             await cloudinary.uploader.destroy(blogToUpdate.image.public_id, {
                 resource_type: "image"
@@ -136,7 +137,7 @@ export const updateBlog = async (req, res, next) => {
             }));
         }
 
-        let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.image[0].path, {
+        let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
             folder: `superAdmin/blog`,
             resource_type: "image"
         }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
@@ -180,4 +181,42 @@ export const deleteBlog = async (req, res, next) => {
     return res.status(200).json({
         message: "Blog deleted successfully"
     });
+}
+
+export const deleteBlogSection = async (req, res, next) => {
+    let { id, sectionId } = req.params;
+
+    let blog = await blogModel.findById(id);
+    if (!blog) {
+        return next(new Error("Blog not found"), {
+            statusCode: 404,
+            message: "Blog not found"
+        });
+    }
+
+    let section = blog.sections.id(sectionId);
+    if (!section) {
+        return next(new Error("Section not found"), {
+            statusCode: 404,
+            message: "Section not found"
+        });
+    }
+
+    if (section.image?.public_id) {
+        await cloudinary.uploader.destroy(section.image.public_id, {
+            resource_type: "image"
+        }).catch((error) => next(new Error("Image deletion failed " + error.message + ""), {
+            statusCode: 500,
+            message: error.message
+        }));
+    }
+
+    section.deleteOne();
+    await blog.save();
+
+    return res.status(200).json({
+        message: "Section deleted successfully"
+    });
+
+    
 }

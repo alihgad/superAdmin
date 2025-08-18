@@ -274,6 +274,7 @@ export let addToSlider = async (req, res, next) => {
         return next(new Error("section not found"))
     }
 
+    
 
     let text = req.body?.text
     let arabic = req.body?.arabic

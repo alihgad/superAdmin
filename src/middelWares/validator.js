@@ -24,6 +24,14 @@ export default (schema) => (req, res, next) => {
     req.body.article = JSON.parse(req.body.article)
   }
 
+  if (req.body?.sections && typeof req.body.sections === 'string') {
+    req.body.sections = JSON.parse(req.body.sections)
+  }
+
+  if (req.body?.content && typeof req.body.content === 'string') {
+    req.body.content = JSON.parse(req.body.content)
+  }
+
   let keys = Object.keys(schema)
   let errors = []
   keys.forEach(key => {

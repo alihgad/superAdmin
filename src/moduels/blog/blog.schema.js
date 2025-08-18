@@ -56,26 +56,6 @@ export const updateBlogSchema = {
       .messages({
         'string.base': 'Blog text must be a string',
       }),
-
-    sections: Joi.array().items(
-      Joi.object({
-        title: Joi.string()
-          .trim()
-          .messages({
-            'string.base': 'Section title must be a string',
-          }),
-        content: Joi.array()
-          .items(Joi.string().trim())
-          .min(1)
-          .messages({
-            'array.base': 'Section content must be an array of strings',
-            'array.min': 'At least one content item is required'
-          })
-      })
-    ).min(1).messages({
-      'array.base': 'Sections must be an array',
-      'array.min': 'At least one section is required'
-    })
   }),
 
   files: Joi.object({
@@ -94,6 +74,13 @@ export const deleteBlogSchema = {
       })
   })
 };
+
+export const deleteBlogSectionSchema = {
+  params: Joi.object({
+    id: globalFields.id,
+    sectionId: globalFields.id
+  })
+}
 
 export const getBlogSchema = {
   params: Joi.object({
