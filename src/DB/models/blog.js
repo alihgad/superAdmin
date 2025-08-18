@@ -17,13 +17,21 @@ const blogSchema = new mongoose.Schema({
     sections: [
         {
             title: {
-                type: String,
-            },
-            content: [
-                {
-                    type: String
+                arabic:{
+                    type:String
+                },
+                english:{
+                    type:String
                 }
-            ]
+            },
+            content:{
+                arabic:[{
+                    type:String
+                }],
+                english:[{
+                    type:String
+                }]
+            }
         }
     ]
 });

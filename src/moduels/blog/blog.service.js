@@ -73,7 +73,6 @@ export const getBlog = async (req, res, next) => {
 
 export const updateBlogSection = async (req, res, next) => {
     let { blogId, sectionId } = req.params;
-    console.log(req.body)
 
     let { title, content } = req.body;
 

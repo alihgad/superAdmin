@@ -13,28 +13,28 @@ export const addBlogSchema = {
 
     sections: Joi.array().items(
       Joi.object({
-        title: Joi.string()
-          .trim()
-          .required()
-          .messages({
+        title: Joi.object({
+          arabic: Joi.string().trim().required().messages({
             'any.required': 'Section title is required',
             'string.base': 'Section title must be a string',
           }),
-        content: Joi.array()
-          .items(Joi.string().trim())
-          .min(1)
-          .required()
-          .messages({
-            'array.base': 'Section content must be an array of strings',
+          english: Joi.string().trim().required().messages({
+            'any.required': 'Section title is required',
+            'string.base': 'Section title must be a string',
+          }),
+        }),
+        content: Joi.object({
+          arabic: Joi.array().items(Joi.string().trim()).min(1).required().messages({
             'any.required': 'Section content is required',
-            'array.min': 'At least one content item is required'
-          })
+            'string.base': 'Section content must be a string',
+          }),
+          english: Joi.array().items(Joi.string().trim()).min(1).required().messages({
+            'any.required': 'Section content is required',
+            'string.base': 'Section content must be a string',
+          }),
+        })
       })
-    ).min(1).required().messages({
-      'array.base': 'Sections must be an array',
-      'any.required': 'Sections are required',
-      'array.min': 'At least one section is required'
-    })
+    ).min(1).required()
   }),
 
   files: Joi.object({
@@ -95,17 +95,23 @@ export const updateBlogSectionSchema = {
   }),
 
   body: Joi.object({
-    title: Joi.string()
-      .trim()
-      .messages({
+    title: Joi.object({
+      arabic: Joi.string().trim().messages({
         'string.base': 'Section title must be a string',
       }),
-    content: Joi.array()
-      .items(Joi.string().trim())
-      .min(1)
-      .messages({
+      english: Joi.string().trim().messages({
+        'string.base': 'Section title must be a string',
+      }),
+    }),
+    content: Joi.object({
+      arabic: Joi.array().items(Joi.string().trim()).min(1).messages({
         'array.base': 'Section content must be an array of strings',
         'array.min': 'At least one content item is required'
-      })
+      }),
+      english: Joi.array().items(Joi.string().trim()).min(1).messages({
+        'array.base': 'Section content must be an array of strings',
+        'array.min': 'At least one content item is required'
+      }),
+    })
   })
 };
