@@ -92,12 +92,20 @@ export const updateBlogSection = async (req, res, next) => {
         });
     }
 
-    if (title) {
-        section.title = title;
+    if (title.arabic) {
+        section.title.arabic = title.arabic;
     }
 
-    if (content) {
-        section.content = content;
+    if (title.english) {
+        section.title.english = title.english;
+    }
+
+    if (content.arabic) {
+        section.content.arabic = content.arabic;
+    }
+
+    if (content.english) {
+        section.content.english = content.english;
     }
 
     await blog.save();
