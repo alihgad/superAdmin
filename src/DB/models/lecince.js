@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 
 const lecinceSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        arabic: {
+            type: String,
+        },
+        english: {
+            type: String,
+        }
+    },
     enumKey: String,
     price: Number,
     isActive: {

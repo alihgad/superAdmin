@@ -3,11 +3,18 @@ import * as globalFields from "../../utils/globalFields.js";
 
 export const addLecinceSchema = {
   body: Joi.object({
-    name: Joi.string()
-      .trim()
-      .messages({
-        'string.base': 'Lecince name must be a string',
-      }),
+    name: Joi.object({
+      arabic: Joi.string()
+        .trim()
+        .messages({
+          'string.base': 'Arabic name must be a string',
+        }),
+      english: Joi.string()
+        .trim()
+        .messages({
+          'string.base': 'English name must be a string',
+        })
+    }).optional(),
 
     enumKey: Joi.string()
       .trim()
@@ -40,11 +47,18 @@ export const updateLecinceSchema = {
   }),
 
   body: Joi.object({
-    name: Joi.string()
-      .trim()
-      .messages({
-        'string.base': 'Lecince name must be a string',
-      }),
+    name: Joi.object({
+      arabic: Joi.string()
+        .trim()
+        .messages({
+          'string.base': 'Arabic name must be a string',
+        }),
+      english: Joi.string()
+        .trim()
+        .messages({
+          'string.base': 'English name must be a string',
+        })
+    }),
 
     enumKey: Joi.string()
       .trim()

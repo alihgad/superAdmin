@@ -4,7 +4,10 @@ export const addLecince = async (req, res, next) => {
     let { name, enumKey, price, isActive } = req.body;
 
     let newLecince = await lecinceModel.create({
-        name,
+        name: {
+            arabic: name?.arabic,
+            english: name?.english
+        },
         enumKey,
         price,
         isActive: isActive !== undefined ? isActive : true
@@ -62,7 +65,10 @@ export const updateLecince = async (req, res, next) => {
 
     let updateData = {};
     
-    if (name !== undefined) updateData.name = name;
+    if (name) {
+        if (name.arabic !== undefined) updateData['name.arabic'] = name.arabic;
+        if (name.english !== undefined) updateData['name.english'] = name.english;
+    }
     if (enumKey !== undefined) updateData.enumKey = enumKey;
     if (price !== undefined) updateData.price = price;
     if (isActive !== undefined) updateData.isActive = isActive;
