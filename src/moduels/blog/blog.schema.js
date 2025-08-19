@@ -14,21 +14,21 @@ export const addBlogSchema = {
     sections: Joi.array().items(
       Joi.object({
         title: Joi.object({
-          arabic: Joi.string().trim().required().messages({
+          arabic: Joi.string().trim().messages({
             'any.required': 'Section title is required',
             'string.base': 'Section title must be a string',
           }),
-          english: Joi.string().trim().required().messages({
+          english: Joi.string().trim().messages({
             'any.required': 'Section title is required',
             'string.base': 'Section title must be a string',
           }),
         }),
         content: Joi.object({
-          arabic: Joi.array().items(Joi.string().trim()).min(1).required().messages({
+          arabic: Joi.array().items(Joi.string().trim()).min(1).messages({
             'any.required': 'Section content is required',
             'string.base': 'Section content must be a string',
           }),
-          english: Joi.array().items(Joi.string().trim()).min(1).required().messages({
+          english: Joi.array().items(Joi.string().trim()).min(1).messages({
             'any.required': 'Section content is required',
             'string.base': 'Section content must be a string',
           }),
@@ -44,7 +44,7 @@ export const addBlogSchema = {
 
 export const updateBlogSchema = {
   params: Joi.object({
-    id: Joi.string().trim().required().messages({
+    id: Joi.string().trim().messages({
       "any.required": "Blog id is required",
       "string.base": "Blog id must be a string"
     })
