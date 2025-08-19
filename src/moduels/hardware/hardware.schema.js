@@ -3,17 +3,38 @@ import * as globalFields from "../../utils/globalFields.js";
 
 export const addHardwareSchema = {
   body: Joi.object({
-    name: Joi.object({
-      arabic: Joi.string()
+    arabic: Joi.object({
+      name: Joi.string()
         .trim()
         .messages({
           'string.base': 'Arabic name must be a string',
         }),
-      english: Joi.string()
+      description: Joi.string()
+        .trim()
+        .messages({
+          'string.base': 'Arabic description must be a string',
+        }),
+      spec: Joi.array().items(Joi.object({
+        name: Joi.string().trim().required(),
+        value: Joi.string().trim().required()
+      }))
+    }).optional(),
+
+    english: Joi.object({
+      name: Joi.string()
         .trim()
         .messages({
           'string.base': 'English name must be a string',
         }),
+      description: Joi.string()
+        .trim()
+        .messages({
+          'string.base': 'English description must be a string',
+        }),
+      spec: Joi.array().items(Joi.object({
+        name: Joi.string().trim().required(),
+        value: Joi.string().trim().required()
+      }))
     }).optional(),
 
     enumKey: Joi.string()
@@ -21,24 +42,6 @@ export const addHardwareSchema = {
       .messages({
         'string.base': 'Enum key must be a string',
       }),
-
-    description: Joi.object({
-      arabic: Joi.string()
-        .trim()
-        .messages({
-          'string.base': 'Arabic description must be a string',
-        }),
-      english: Joi.string()
-        .trim()
-        .messages({
-          'string.base': 'English description must be a string',
-        }),
-    }).optional(),
-
-    spec: Joi.object({
-      arabic: Joi.array().items(Joi.string().trim()),
-      english: Joi.array().items(Joi.string().trim())
-    }).optional(),
 
     price: Joi.number()
       .positive()
@@ -69,17 +72,38 @@ export const updateHardwareSchema = {
   }),
 
   body: Joi.object({
-    name: Joi.object({
-      arabic: Joi.string()
+    arabic: Joi.object({
+      name: Joi.string()
         .trim()
         .messages({
           'string.base': 'Arabic name must be a string',
         }),
-      english: Joi.string()
+      description: Joi.string()
+        .trim()
+        .messages({
+          'string.base': 'Arabic description must be a string',
+        }),
+      spec: Joi.array().items(Joi.object({
+        name: Joi.string().trim().required(),
+        value: Joi.string().trim().required()
+      }))
+    }),
+
+    english: Joi.object({
+      name: Joi.string()
         .trim()
         .messages({
           'string.base': 'English name must be a string',
         }),
+      description: Joi.string()
+        .trim()
+        .messages({
+          'string.base': 'English description must be a string',
+        }),
+      spec: Joi.array().items(Joi.object({
+        name: Joi.string().trim().required(),
+        value: Joi.string().trim().required()
+      }))
     }),
 
     enumKey: Joi.string()
@@ -87,24 +111,6 @@ export const updateHardwareSchema = {
       .messages({
         'string.base': 'Enum key must be a string',
       }),
-
-    description: Joi.object({
-      arabic: Joi.string()
-        .trim()
-        .messages({
-          'string.base': 'Arabic description must be a string',
-        }),
-      english: Joi.string()
-        .trim()
-        .messages({
-          'string.base': 'English description must be a string',
-        }),
-    }),
-
-    spec: Joi.object({
-      arabic: Joi.array().items(Joi.string().trim()),
-      english: Joi.array().items(Joi.string().trim())
-    }),
 
     price: Joi.number()
       .positive()

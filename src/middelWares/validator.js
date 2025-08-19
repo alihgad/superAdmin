@@ -32,6 +32,8 @@ export default (schema) => (req, res, next) => {
     req.body.content = JSON.parse(req.body.content)
   }
 
+  
+
   let keys = Object.keys(schema)
   let errors = []
   keys.forEach(key => {

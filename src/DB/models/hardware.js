@@ -1,22 +1,26 @@
 import mongoose from "mongoose";
 
 const hardwareSchema = new mongoose.Schema({
-    name: {
-        arabic: String,
-        english: String,
+    arabic: {
+        name: String,
+        description: String,
+        spec: [{
+            name: String,
+            value: String
+        }]
+    },
+    english: {
+        name: String,
+        description: String,
+        spec: [{
+            name: String,
+            value: String
+        }]
     },
     enumKey: String,
     image: {
         secure_url: String,
         public_id: String,
-    },
-    description: {
-        arabic: String,
-        english: String,
-    },
-    spec:{
-        arabic:[String],
-        english:[String]
     },
     price: Number,
     isActive: {

@@ -2,7 +2,7 @@ import hardwareModel from "../../DB/models/hardware.js";
 import { cloudinaryUpload as cloudinary } from "../../middelWares/multer.js";
 
 export const addHardware = async (req, res, next) => {
-    let { name, enumKey, description, spec, price, isActive } = req.body;
+    let { arabic, english, enumKey, price, isActive } = req.body;
     let image = null;
     
     let uploadImage = async () => {
@@ -31,10 +31,9 @@ export const addHardware = async (req, res, next) => {
     }
 
     let newHardware = await hardwareModel.create({
-        name,
+        arabic,
+        english,
         enumKey,
-        description,
-        spec,
         price,
         isActive: isActive !== undefined ? isActive : true,
         image
@@ -80,7 +79,7 @@ export const getHardware = async (req, res, next) => {
 
 export const updateHardware = async (req, res, next) => {
     let { id } = req.params;
-    let { name, enumKey, description, spec, price, isActive } = req.body;
+    let { arabic, english, enumKey, price, isActive } = req.body;
 
     let hardware = await hardwareModel.findById(id);
     if (!hardware) {
@@ -92,13 +91,19 @@ export const updateHardware = async (req, res, next) => {
 
     let updateData = {};
     
-    if (name && name.arabic !== undefined) updateData.name = { ...updateData.name, arabic: name.arabic };
-    if (name && name.english !== undefined) updateData.name = { ...updateData.name, english: name.english };
+    if (arabic) {
+        if (arabic.name !== undefined) updateData['arabic.name'] = arabic.name;
+        if (arabic.description !== undefined) updateData['arabic.description'] = arabic.description;
+        if (arabic.spec !== undefined) updateData['arabic.spec'] = arabic.spec;
+    }
+    
+    if (english) {
+        if (english.name !== undefined) updateData['english.name'] = english.name;
+        if (english.description !== undefined) updateData['english.description'] = english.description;
+        if (english.spec !== undefined) updateData['english.spec'] = english.spec;
+    }
+    
     if (enumKey !== undefined) updateData.enumKey = enumKey;
-    if (description && description.arabic !== undefined) updateData.description = { ...updateData.description, arabic: description.arabic };
-    if (description && description.english !== undefined) updateData.description = { ...updateData.description, english: description.english };
-    if (spec && spec.arabic !== undefined) updateData.spec = { ...updateData.spec, arabic: spec.arabic };
-    if (spec && spec.english !== undefined) updateData.spec = { ...updateData.spec, english: spec.english };
     if (price !== undefined) updateData.price = price;
     if (isActive !== undefined) updateData.isActive = isActive;
 
