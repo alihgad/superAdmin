@@ -35,6 +35,11 @@ export const addHardwareSchema = {
         }),
     }).optional(),
 
+    spec: Joi.object({
+      arabic: Joi.array().items(Joi.string().trim()),
+      english: Joi.array().items(Joi.string().trim())
+    }).optional(),
+
     price: Joi.number()
       .positive()
       .messages({
@@ -94,6 +99,11 @@ export const updateHardwareSchema = {
         .messages({
           'string.base': 'English description must be a string',
         }),
+    }),
+
+    spec: Joi.object({
+      arabic: Joi.array().items(Joi.string().trim()),
+      english: Joi.array().items(Joi.string().trim())
     }),
 
     price: Joi.number()

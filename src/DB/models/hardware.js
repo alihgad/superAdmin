@@ -14,6 +14,10 @@ const hardwareSchema = new mongoose.Schema({
         arabic: String,
         english: String,
     },
+    spec:{
+        arabic:[String],
+        english:[String]
+    },
     price: Number,
     isActive: {
         type: Boolean,

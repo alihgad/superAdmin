@@ -1,0 +1,1837 @@
+{
+	"info": {
+		"_postman_id": "ef5807e2-e9f9-4599-9e99-d975e7ef4544",
+		"name": "superAdmin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32065315"
+	},
+	"item": [
+		{
+			"name": "sections",
+			"item": [
+				{
+					"name": "addSection",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "arabic",
+									"value": "{ \"title\":\"ج\"  \"content\":\"د\"  }",
+									"type": "text"
+								},
+								{
+									"key": "english",
+									"value": "{\"title\" : \"t\" , \"content\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce placerat eget est sed fringilla. Etiam vestibulum ex non elit blandit commodo. Vestibulum sodales neque erat, a porta diam aliquet vel. Ut\"}",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/section/home/hero",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"section",
+								"home",
+								"hero"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSection",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "arabic",
+									"value": "{\"title\" : \"هنا تجربة\" , \"content\" : \"بنجرب\" }",
+									"type": "text"
+								},
+								{
+									"key": "english",
+									"value": "{\"title\" : \"test\" , \"content\" : \"we test\" }",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/C:/Users/ALI/OneDrive/Pictures/FB_IMG_1570137557242.jpg",
+										"/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg",
+										"/C:/Users/ALI/OneDrive/Pictures/Route.jpeg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/section/home/hero",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"section",
+								"home",
+								"hero"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/section/home/hero",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"section",
+								"home",
+								"hero"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSection",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/section/home/hero",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"section",
+								"home",
+								"hero"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllSections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/section/home",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"section",
+								"home"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sliders",
+			"item": [
+				{
+					"name": "createSlider",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "arabic",
+									"value": "{ \"title\":\"Mahmoud Ali\"  ,\"content\":\"Co-Founder & Chief Executive Officer\"  }",
+									"type": "text"
+								},
+								{
+									"key": "english",
+									"value": "{\"title\" : \"Mahmoud Ali\" , \"content\":\"Co-Founder & Chief Executive Officer\"}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/Route.jpeg"
+								},
+								{
+									"key": "title",
+									"value": "{\"arabic\":\"عنوان\" , \"english\":\"enwan\"}",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "{\"arabic\":\"محتوى\" , \"english\":\"mohtawa\"}",
+									"type": "text"
+								},
+								{
+									"key": "text",
+									"value": "ali",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/section/slider/home/try",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"section",
+								"slider",
+								"home",
+								"try"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addToSlider",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "arabic",
+									"value": "{ \"title\":\"Mahmoud Ali\"  ,\"content\":\"Co-Founder & Chief Executive Officer\"  }",
+									"type": "text"
+								},
+								{
+									"key": "english",
+									"value": "{\"title\" : \"Mahmoud Ali\" , \"content\":\"Co-Founder & Chief Executive Officer\"}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/section/slider/addtoslider/6865009e4ec2a125b2fe7bca",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"section",
+								"slider",
+								"addtoslider",
+								"6865009e4ec2a125b2fe7bca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSliderData",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": " {\"arabic\": \"رب رابع\",\"english\": \"Co-Founder & Chief Executive Officer small \"}",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": " {\"arabic\": \"  شركة سيدا\",\"english\": \"Co-Founder & Chief Executive Officer small \"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/section/updateslider/685d8cb6271acb941559f2ca",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"section",
+								"updateslider",
+								"685d8cb6271acb941559f2ca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOneSlide",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "arabic",
+									"value": "{\"title\":\"عنوان\" , \"content\":\"محتوى\"}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "english",
+									"value": "{\"title\":\"start\" , \"content\" : \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce placerat eget est sed fringilla.Etiamvestibulum ex non elit blandit commodo. Vestibulum sodales neque erat, a porta diam aliquet vel. Ut\"}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "text",
+									"value": "omar",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/section/slider/updateoneslide/home/sidaoffers/68664c875f2b7c5393947ba4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"section",
+								"slider",
+								"updateoneslide",
+								"home",
+								"sidaoffers",
+								"68664c875f2b7c5393947ba4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOneSlide",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{local}}/section/slider/home/aboutus/685c11d8048c848f116beb5f",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"section",
+								"slider",
+								"home",
+								"aboutus",
+								"685c11d8048c848f116beb5f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSlider",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{local}}/section/slider/685c11d8048c848f116beb5f",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"section",
+								"slider",
+								"685c11d8048c848f116beb5f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSlider",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/section/slider/home/aboutus",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"section",
+								"slider",
+								"home",
+								"aboutus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSlides",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/section/slider/home",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"section",
+								"slider",
+								"home"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "plans",
+			"item": [
+				{
+					"name": "addPlan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": \"10\",\r\n    \"arabic\": {\r\n        \"name\": \"اساسية\",\r\n        \"description\": \"خطة اساسية\",\r\n        \"features\":[\r\n            \"كاشير\",\r\n            \"شاشة عرض\"\r\n            ]\r\n    },\r\n    \"english\": {\r\n        \"name\": \"basic\",\r\n        \"description\": \"basic plan\",\r\n        \"features\":[\r\n            \"cashier\",\r\n            \"KDS\"\r\n        ]\r\n    },\r\n    \"activeFeatures\":[0,1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/plan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"plan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePlan",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2M0OTZhNzU5OGY3MzM4MWZjMTg0ZiIsImlhdCI6MTc0ODc4MjA4N30.0JHq33-UvdODuUhfgGFYATU4J_1hG--vkMt1oqiFIZ4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": \"100\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/plan/685d5e759891cbdf528d214f",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"plan",
+								"685d5e759891cbdf528d214f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlans",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/plan",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"plan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPlan",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/plan/basic",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"plan",
+								"basic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{local}}/plan/685d65c1228e7a8fe8fa40a3",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"plan",
+								"685d65c1228e7a8fe8fa40a3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "features",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{local}}/plan/getFeatures",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"plan",
+								"getFeatures"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "helpArticles",
+			"item": [
+				{
+					"name": "addArticle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "article",
+									"value": "{\"arabic\" : \"\" , \"english\": \"\"}",
+									"type": "text"
+								},
+								{
+									"key": "english",
+									"value": "{\"title\":\"cds\"  , \"content\":\"turn on cds\" , \"steps\" : [ \"turn on \" , \"sale\"]},",
+									"type": "text"
+								},
+								{
+									"key": "arabic",
+									"value": "{\"title\" : \"الكاشير\" , \"content\" : \"شغل الكاشير\" , \"steps\":[\"شغل الجهاز\" , \" بيع\"]}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/FB_IMG_1570137557242.jpg"
+								},
+								{
+									"key": "vedio",
+									"type": "file",
+									"src": "/C:/Users/ALI/Videos/Screen Recordings/Screen Recording 2025-06-18 190725.mp4"
+								},
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/help",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"help"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getArticles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/help",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"help"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getArticle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/help/cds",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"help",
+								"cds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateArticle",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "article",
+									"value": "{\"arabic\":\"\" , \"english\":\"\"}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "english",
+									"value": "{\"title\":\"cds\" , \"content\":\"turn on cds\" , \"steps\" :[ \"turn on \" , \"sale\"]}",
+									"type": "text"
+								},
+								{
+									"key": ",arabic",
+									"value": "{\"title\" : \"الكاشير\" , \"content\" : \"شغل الكاشير\" , \"steps\":[\"شغل الجهاز\" , \" بيع\"]}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/Route.jpeg",
+									"disabled": true
+								},
+								{
+									"key": "vedio",
+									"type": "file",
+									"src": "/C:/Users/ALI/Videos/Screen Recordings/Screen Recording 2025-06-18 190725.mp4",
+									"disabled": true
+								},
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/FB_IMG_1570137557242.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/help/687e91ba78bd7237a664af3f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"help",
+								"687e91ba78bd7237a664af3f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteArticle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "vedio",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/help/685c4226885e469761cd4a3b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"help",
+								"685c4226885e469761cd4a3b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "footer",
+			"item": [
+				{
+					"name": "addLink",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"arabic\":{\r\n        \"title\" : \"مسارات التوظيف\"\r\n    },\r\n    \"english\":{\r\n        \"title\" : \"careers\"\r\n    },\r\n    \"link\":\"#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/footer/company",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"footer",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateLink",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"About\",\r\n    \"arabic\":{\r\n        \"title\" : \"عن سيدا\"\r\n    },\r\n    \"english\":{\r\n        \"title\" : \"About us\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/footer/68530b2e8c9badd6342ea117",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"footer",
+								"68530b2e8c9badd6342ea117"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getLinks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/footer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"footer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCategoryLinks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/footer/company",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"footer",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteLink",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/footer/68530b2e8c9badd6342ea117",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"footer",
+								"68530b2e8c9badd6342ea117"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "social",
+			"item": [
+				{
+					"name": "addSocial",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"link\":\"#\",\r\n    \"icon\":\"facebook\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/footer/social",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"footer",
+								"social"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSocial",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"display\":\"true\",\r\n    \"link\":\"#\",\r\n    \"icon\":\"twitter\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/footer/social/685a9c26f9293087e6a9803b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"footer",
+								"social",
+								"685a9c26f9293087e6a9803b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSocial",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/footer/social/685a9c26f9293087e6a9803b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"footer",
+								"social",
+								"685a9c26f9293087e6a9803b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSocial",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/footer/social",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"footer",
+								"social"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "testimonial",
+			"item": [
+				{
+					"name": "addTest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "arabic",
+									"value": "{name:header , \"text\":Be Part of 30,000+ Restaurants Thriving with SIDA,\"company\":Your growth is our mission.Discover how SIDA empowers many restaurants like yours to succeed—hear directly from our clients!}",
+									"type": "text"
+								},
+								{
+									"key": "english",
+									"value": "{name:header , \"text\":Be Part of 30,000+ Restaurants Thriving with SIDA,\"company\":Your growth is our mission.Discover how SIDA empowers many restaurants like yours to succeed—hear directly from our clients!}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/testimonials",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"testimonials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{local}}/testimonials",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"testimonials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTest",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/testimonials/686d7a0d5dbf759f4e98d321",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"testimonials",
+								"686d7a0d5dbf759f4e98d321"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletTest",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{local}}/testimonials/685d8a1529b873453301e212",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"testimonials",
+								"685d8a1529b873453301e212"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTest",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "arabic",
+									"value": "{name:header , \"text\":Be Part of 30,000+ Restaurants Thriving with SIDA,\"company\":Your growth is our mission.Discover how SIDA empowers many restaurants like yours to succeed—hear directly from our clients!}",
+									"type": "text"
+								},
+								{
+									"key": "english",
+									"value": "{name:header , \"text\":Be Part of 30,000+ Restaurants Thriving with SIDA,\"company\":Your growth is our mission.Discover how SIDA empowers many restaurants like yours to succeed—hear directly from our clients!}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/FB_IMG_1570137557242.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/testimonials/685d8a1529b873453301e212",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"testimonials",
+								"685d8a1529b873453301e212"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "blog",
+			"item": [
+				{
+					"name": "addBlog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "hello",
+									"type": "text"
+								},
+								{
+									"key": "sections",
+									"value": "[ {\"title\" :{\"arabic\":\"بداية\" , \"english\":\"start\"} ,\"content\":{arabic:[\"بداية المحتوى\" , \"وسط المحتوى \" , \"نهاية المحتوى \"],\"english\":[\"start content\" , \"mid content\" , \"end content \"]}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/blog/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"blog",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllBlogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/blog/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"blog",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBlog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/blog/68a33ab00c5d014502b33264",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"blog",
+								"68a33ab00c5d014502b33264"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSection",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "{\"arabic\":\"على\" , \"english\":\"ali\"}",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "{\"arabic\":[\"انا\" , \"انت\" ] , \"english\":[\"me\",\"you\"]}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/blog/68a33a540c5d014502b3325d/section/68a33a540c5d014502b3325f",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"blog",
+								"68a33a540c5d014502b3325d",
+								"section",
+								"68a33a540c5d014502b3325f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBlog",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								},
+								{
+									"key": "text",
+									"value": "text",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/blog/68a33a540c5d014502b3325d",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"blog",
+								"68a33a540c5d014502b3325d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSection",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{local}}/blog/68a33a540c5d014502b3325d/section/68a33a540c5d014502b3325f",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"blog",
+								"68a33a540c5d014502b3325d",
+								"section",
+								"68a33a540c5d014502b3325f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBlog",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{local}}/blog/68a33a540c5d014502b3325d",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"blog",
+								"68a33a540c5d014502b3325d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "hardware",
+			"item": [
+				{
+					"name": "addHardware",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{\"arabic\":\"جهاز كاشير\", \"english\":\"Cashier Device\"}",
+									"type": "text"
+								},
+								{
+									"key": "enumKey",
+									"value": "cashier",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{\"arabic\":\"جهاز كاشير متطور\", \"english\":\"Advanced cashier device\"}",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1500",
+									"type": "text"
+								},
+								{
+									"key": "isActive",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/hardware",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"hardware"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllHardware",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/hardware",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"hardware"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActiveHardware",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/hardware/active",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"hardware",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getHardware",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/hardware/68a33ab00c5d014502b33264",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"hardware",
+								"68a33ab00c5d014502b33264"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateHardware",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{\"arabic\":\"جهاز كاشير محدث\", \"english\":\"Updated Cashier Device\"}",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1800",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ALI/OneDrive/Pictures/pxfuel.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/hardware/68a33ab00c5d014502b33264",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"hardware",
+								"68a33ab00c5d014502b33264"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggleHardwareStatus",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{local}}/hardware/68a33ab00c5d014502b33264/toggle-status",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"hardware",
+								"68a33ab00c5d014502b33264",
+								"toggle-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteHardware",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{local}}/hardware/68a33ab00c5d014502b33264",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"hardware",
+								"68a33ab00c5d014502b33264"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lecince",
+			"item": [
+				{
+					"name": "addLecince",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"رخصة اساسية\",\r\n    \"enumKey\": \"basic\",\r\n    \"price\": 100,\r\n    \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/lecince",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"lecince"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllLecince",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/lecince",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"lecince"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActiveLecince",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/lecince/active",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"lecince",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getLecince",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/lecince/68a33ab00c5d014502b33264",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"lecince",
+								"68a33ab00c5d014502b33264"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateLecince",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"رخصة اساسية محدثة\",\r\n    \"price\": 150\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/lecince/68a33ab00c5d014502b33264",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"lecince",
+								"68a33ab00c5d014502b33264"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggleLecinceStatus",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{local}}/lecince/68a33ab00c5d014502b33264/toggle-status",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"lecince",
+								"68a33ab00c5d014502b33264",
+								"toggle-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteLecince",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{local}}/lecince/68a33ab00c5d014502b33264",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"lecince",
+								"68a33ab00c5d014502b33264"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://super-admin-eta.vercel.app/",
+			"type": "string"
+		},
+		{
+			"key": "local",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
