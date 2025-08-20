@@ -120,8 +120,10 @@ export const addBlogSection = async (req, res, next) => {
     let { blogId } = req.params;
 
     let { title, content } = req.body;
+    console.log(req.body)
+    
 
-    let blog = await blogModel.findById(blogId).select("-__v");
+    let blog = await blogModel.findByIdAndUpdate(blogId, { $push: { sections: { title, content } } }, { new: true }).select("-__v");
     if (!blog) {
         return next(new Error("Blog not found"), {
             statusCode: 404,
@@ -131,7 +133,7 @@ export const addBlogSection = async (req, res, next) => {
 
     
 
-    blog.sections.push({title , content})
+    
 
     await blog.save();
 

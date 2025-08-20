@@ -115,3 +115,29 @@ export const updateBlogSectionSchema = {
     })
   })
 };
+export const addBlogSectionSchema = {
+  params: Joi.object({
+    blogId: globalFields.id,
+  }),
+
+  body: Joi.object({
+    title: Joi.object({
+      arabic: Joi.string().trim().messages({
+        'string.base': 'Section title must be a string',
+      }),
+      english: Joi.string().trim().messages({
+        'string.base': 'Section title must be a string',
+      }),
+    }),
+    content: Joi.object({
+      arabic: Joi.array().items(Joi.string().trim()).min(1).messages({
+        'array.base': 'Section content must be an array of strings',
+        'array.min': 'At least one content item is required'
+      }),
+      english: Joi.array().items(Joi.string().trim()).min(1).messages({
+        'array.base': 'Section content must be an array of strings',
+        'array.min': 'At least one content item is required'
+      }),
+    })
+  })
+};
