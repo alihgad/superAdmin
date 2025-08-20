@@ -30,7 +30,7 @@ if(req?.files?.image?.length > 0){
     let newBlog = await blogModel.create({
         text,
         sections,
-        image
+        image : image || {}
     });
 
     return res.status(201).json({
