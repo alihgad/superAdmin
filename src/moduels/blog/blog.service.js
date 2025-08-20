@@ -18,7 +18,7 @@ export const addBlog = async (req, res, next) => {
             secure_url: secure_url
         };
     }
-if(req?.files?.image[0]){
+if(req?.files?.image.length > 0){
     let image = await uploadImage();
     if (!image) {
         return next(new Error("Image upload failed"), {
