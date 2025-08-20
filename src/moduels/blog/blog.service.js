@@ -3,7 +3,9 @@ import { cloudinaryUpload as cloudinary } from "../../middelWares/multer.js";
 
 export const addBlog = async (req, res, next) => {
     let { text, sections } = req.body;
-
+let newData ={}
+    if(text) newData.text = text
+    if(sections) newData.sections = sections
     let uploadImage = async () => {
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.image[0].path, {
             folder: `superAdmin/blogs`,
@@ -26,12 +28,9 @@ if(req?.files?.image?.length > 0){
             message: "Image upload failed"
         });
     }
+    newData.image = image
 }
-    let newBlog = await blogModel.create({
-        text,
-        sections,
-        image : image || {}
-    });
+    let newBlog = await blogModel.create(newData);
 
     return res.status(201).json({
         message: "Blog added successfully",
