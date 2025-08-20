@@ -5,9 +5,9 @@ export const addBlogSchema = {
   body: Joi.object({
     text: Joi.string()
       .trim()
-      .required()
+      
       .messages({
-        'any.required': 'Blog text is required',
+        
         'string.base': 'Blog text must be a string',
       }),
 
@@ -15,31 +15,31 @@ export const addBlogSchema = {
       Joi.object({
         title: Joi.object({
           arabic: Joi.string().trim().messages({
-            'any.required': 'Section title is required',
+          
             'string.base': 'Section title must be a string',
           }),
           english: Joi.string().trim().messages({
-            'any.required': 'Section title is required',
+        
             'string.base': 'Section title must be a string',
           }),
         }),
         content: Joi.object({
           arabic: Joi.array().items(Joi.string().trim()).min(1).messages({
-            'any.required': 'Section content is required',
+          
             'string.base': 'Section content must be a string',
           }),
           english: Joi.array().items(Joi.string().trim()).min(1).messages({
-            'any.required': 'Section content is required',
+        
             'string.base': 'Section content must be a string',
           }),
         })
       })
-    ).min(1).required()
+    ).min(1)
   }),
 
   files: Joi.object({
-    image: Joi.array().items(globalFields.file).required(),
-  }).required()
+    image: Joi.array().items(globalFields.file)
+  })
 };
 
 export const updateBlogSchema = {
