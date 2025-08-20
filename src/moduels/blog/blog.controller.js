@@ -11,7 +11,7 @@ blogRouter.post("/", upload.fields([{ name: "image", maxCount: 1 }]), validate(s
 blogRouter.get("/", asyncHandler(bs.getAllBlogs));
 blogRouter.get("/:id", validate(schemas.getBlogSchema), asyncHandler(bs.getBlog));
 blogRouter.put("/:blogId/section/:sectionId", upload.single("image"), validate(schemas.updateBlogSectionSchema), asyncHandler(bs.updateBlogSection));
-blogRouter.post("/:blogId/section", upload.single("image"), validate(schemas.updateBlogSectionSchema), asyncHandler(bs.addBlogSection))
+blogRouter.post("/:blogId/section", upload.single("image"), asyncHandler(bs.addBlogSection))
 blogRouter.put("/:id", upload.single("image"), validate(schemas.updateBlogSchema), asyncHandler(bs.updateBlog));
 blogRouter.delete("/:id", validate(schemas.deleteBlogSchema), asyncHandler(bs.deleteBlog));
 blogRouter.delete("/:id/section/:sectionId", validate(schemas.deleteBlogSectionSchema), asyncHandler(bs.deleteBlogSection));
