@@ -116,6 +116,32 @@ export const updateBlogSection = async (req, res, next) => {
     });
 }
 
+
+export const addBlogSection = async (req, res, next) => {
+    let { blogId } = req.params;
+
+    let { title, content } = req.body;
+
+    let blog = await blogModel.findById(blogId).select("-__v");
+    if (!blog) {
+        return next(new Error("Blog not found"), {
+            statusCode: 404,
+            message: "Blog not found"
+        });
+    }
+
+    
+
+    blog.sections.push({title , content})
+
+    await blog.save();
+
+    return res.status(200).json({
+        message: "Section added successfully",
+        section
+    });
+}
+
 export const updateBlog = async (req, res, next) => {
     let { id } = req.params;
     let { text } = req.body;
