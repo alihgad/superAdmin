@@ -137,7 +137,10 @@ export const addBlogSection = async (req, res, next) => {
 
     return res.status(200).json({
         message: "Section added successfully",
-        section
+        section : {
+            title ,
+            content 
+        }
     });
 }
 

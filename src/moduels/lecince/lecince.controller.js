@@ -29,3 +29,4 @@ lecinceRouter.patch("/:id/toggle-status", validate(schemas.getLecinceSchema), as
 lecinceRouter.delete("/:id", validate(schemas.deleteLecinceSchema), asyncHandler(ls.deleteLecince));
 
 export default lecinceRouter;
+
