@@ -4,6 +4,7 @@ import helpRouter from "./src/moduels/help/help.controller.js";
 import footerRouter from "./src/moduels/footer/footer.controller.js";
 import testimonialRouter from "./src/moduels/testimonials/testimonial.controller.js";
 import blogRouter from "./src/moduels/blog/blog.controller.js";
+import userRouter from "./src/moduels/user/user.controller.js";
 
 export default (app) => {
     // Setup routes
@@ -19,6 +20,7 @@ export default (app) => {
     app.use("/footer", footerRouter);
     app.use("/testimonials", testimonialRouter);
     app.use("/blog", blogRouter);
+    app.use("/user", userRouter);
 
     // Error handling middleware (should be last)
     app.use((req, res, next) => {

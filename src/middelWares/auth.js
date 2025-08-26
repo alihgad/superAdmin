@@ -1,26 +1,40 @@
 import jwt from "jsonwebtoken";
 
-export default (roles=[])=>(req, res, next) => {
+export const auth = (req, res, next) => {
+    try {
+        let token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({ message: "غير مصرح - مطلوب token" });
+        }
 
-    if (!req.headers.authorization) {
-        return next(new Error("Unauthorized"))
+        let decoded = jwt.verify(token, process.env.JWT_SECRET || "your-secret-key");
+
+        if (!decoded) {
+            return res.status(401).json({ message: "غير مصرح - token غير صحيح" });
+        }
+
+        
+        req.user = {
+            userId: decoded.userId,
+            email: decoded.email,
+            role: decoded.role
+        };
+
+        next();
+    } catch (error) {
+        return res.status(401).json({ message: "غير مصرح - token غير صحيح" });
+    }
+};
+
+export const authorize = (roles = []) => (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ message: "غير مصرح - مطلوب تسجيل دخول" });
     }
 
-    let token = req.headers.authorization.split(" ")[1];
-
-    if (!token) {
-        return next(new Error("Unauthorized"))
+    if (roles.length > 0 && !roles.includes(req.user.role)) {
+        return res.status(403).json({ message: "غير مصرح - لا تملك الصلاحيات المطلوبة" });
     }
 
-    let decoded = jwt.verify(token, process.env.JWT_SECRET)
-
-
-    req.userId = decoded.id
-
-    if (roles.length > 0 && !roles.includes(decoded.role)) {
-        return next(new Error("Unauthorized"))
-    }
-
-    next()
-}
+    next();
+};
 
