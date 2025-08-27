@@ -36,7 +36,7 @@ export default function validate(schema) {
       const errors = error.details.map(detail => detail.message);
       return res.status(400).json({ 
         success: false,
-        message: "خطأ في البيانات المرسلة",
+        message: "validation error",
         errors 
       });
     }
@@ -45,7 +45,7 @@ export default function validate(schema) {
   } catch (err) {
     return res.status(400).json({ 
       success: false,
-      message: "خطأ في معالجة البيانات",
+      message: "error from validator",
       error: err.message 
     });
   }

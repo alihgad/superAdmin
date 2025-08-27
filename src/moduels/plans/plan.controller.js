@@ -11,8 +11,8 @@ let planRouter = Router()
 
 planRouter.get("/", asyncHandler(getAllPlans))
 planRouter.get("/:name", asyncHandler(getPlan))
-planRouter.post("/", validate(createPlanSchema), asyncHandler(createPlan))
-planRouter.put("/:id",validate(updatePlanSchema) ,asyncHandler(updatePlan))
+planRouter.post("/",  asyncHandler(createPlan))
+planRouter.put("/:id" ,asyncHandler(updatePlan))
 planRouter.delete("/:id",asyncHandler(deletePlan))
 
 
