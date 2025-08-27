@@ -370,7 +370,8 @@ export let updateSlider = async (req, res, next) => {
     if (!slider) {
         return next(new Error("section not found"))
     }
-
+    console.log(req.body, "req.body")
+    
     let title = req.body?.title
     let content = req.body?.content
 
