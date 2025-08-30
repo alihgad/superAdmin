@@ -14,7 +14,7 @@ userRouter.post("/reset-password", asyncHandler(us.resetPassword));
 userRouter.put("/change-password", auth, asyncHandler(us.changePassword));
 userRouter.get("/", auth, asyncHandler(us.getAllUsers));
 userRouter.get("/stats", auth, asyncHandler(us.getUserStats));
-userRouter.post("/addUser", asyncHandler(us.createUser));
+userRouter.post("/addUser", auth ,asyncHandler(us.createUser));
 userRouter.get("/:id", auth, asyncHandler(us.getUserById));
 userRouter.put("/:id", auth, asyncHandler(us.updateUser));
 userRouter.delete("/:id", auth, asyncHandler(us.deleteUser));
