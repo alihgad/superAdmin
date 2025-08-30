@@ -7,16 +7,16 @@ import { auth } from "../../middelWares/auth.js";
 
 let userRouter = Router();
 
-userRouter.post("/login", validate(schemas.loginSchema), asyncHandler(us.loginUser));
-userRouter.post("/forgot-password", validate(schemas.forgotPasswordSchema), asyncHandler(us.forgotPassword));
-userRouter.post("/reset-password", validate(schemas.resetPasswordSchema), asyncHandler(us.resetPassword));
+userRouter.post("/login", asyncHandler(us.loginUser));
+userRouter.post("/forgot-password", asyncHandler(us.forgotPassword));
+userRouter.post("/reset-password", asyncHandler(us.resetPassword));
 
-userRouter.put("/change-password", auth, validate(schemas.changePasswordSchema), asyncHandler(us.changePassword));
+userRouter.put("/change-password", auth, asyncHandler(us.changePassword));
 userRouter.get("/", auth, asyncHandler(us.getAllUsers));
 userRouter.get("/stats", auth, asyncHandler(us.getUserStats));
-userRouter.post("/addUser", validate(schemas.createUserSchema), asyncHandler(us.createUser));
+userRouter.post("/addUser", asyncHandler(us.createUser));
 userRouter.get("/:id", auth, asyncHandler(us.getUserById));
-userRouter.put("/:id", auth, validate(schemas.updateUserSchema), asyncHandler(us.updateUser));
+userRouter.put("/:id", auth, asyncHandler(us.updateUser));
 userRouter.delete("/:id", auth, asyncHandler(us.deleteUser));
 
 export default userRouter;
