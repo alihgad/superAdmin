@@ -5,6 +5,9 @@ import footerRouter from "./src/moduels/footer/footer.controller.js";
 import testimonialRouter from "./src/moduels/testimonials/testimonial.controller.js";
 import blogRouter from "./src/moduels/blog/blog.controller.js";
 import userRouter from "./src/moduels/user/user.controller.js";
+import roleRouter from "./src/moduels/role/role.controller.js";
+import permissionModel from "./src/DB/models/permission.js";
+import asyncHandler from "./src/utils/asyncHandler.js";
 
 export default (app) => {
     // Setup routes
@@ -21,6 +24,14 @@ export default (app) => {
     app.use("/testimonials", testimonialRouter);
     app.use("/blog", blogRouter);
     app.use("/user", userRouter);
+    app.use("/role", roleRouter);
+    app.get("/permissions", asyncHandler(async (req, res) => {
+        const permissions = await permissionModel.find();
+        return res.status(200).json({
+            message: "Permissions fetched successfully",
+            permissions
+        });
+    }));
 
     // Error handling middleware (should be last)
     app.use((req, res, next) => {

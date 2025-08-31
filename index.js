@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./src/DB/connection.js";
 import mongoose from "mongoose";
+import permissionModel from "./src/DB/models/permission.js";
+import permissions from "./permissions.js";
 
 dotenv.config();
 
@@ -42,6 +44,10 @@ async function startApp() {
         
         // Only after DB is connected, start the server
         bootstrab(app);
+
+        // await permissionModel.deleteMany({});
+        // await permissionModel.insertMany(permissions);
+        // console.log("Permissions inserted");
         
     } catch (error) {
         console.log("Database connection failed:", error.message);

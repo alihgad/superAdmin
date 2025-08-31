@@ -7,24 +7,21 @@ import { sendResetPasswordEmail, sendWelcomeEmail, sendPasswordChangedEmail } fr
 
 
 export const createUser = async (req, res, next) => {
-    const { email, password, name } = req.body;
-
+    const { email, password, name, role } = req.body;
 
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
         throw new Error("Email already exists");
     }
 
-    console.log(password)
-    
-
-
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await userModel.create({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        role,
+        createdBy: req.user?.userId || "system"
     });
 
     const userWithoutPassword = user.toObject();
@@ -88,7 +85,7 @@ export const getAllUsers = async (req, res, next) => {
 
 export const getUserById = async (req, res, next) => {
     const { id } = req.params;
-    id
+    
     const user = await userModel.findById(id).select("-password");
     if (!user) {
         throw new Error("User not found");
@@ -102,12 +99,16 @@ export const getUserById = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
     const { id } = req.params;
-    const { name, email } = req.body;
-
+    const { name, email, role } = req.body;
 
     const updatedUser = await userModel.findByIdAndUpdate(
         id,
-        { name, email },
+        { 
+            name, 
+            email, 
+            role,
+            updatedAt: new Date()
+        },
         { new: true, runValidators: true }
     ).select("-password");
 
@@ -240,8 +241,11 @@ export const changePassword = async (req, res, next) => {
         console.error("Error sending password changed email:", error);
     }
 
+    const userWithoutPassword = user.toObject();
+    delete userWithoutPassword.password;
+
     return res.status(200).json({
         message: "Password changed successfully",
-        user: user
+        user: userWithoutPassword
     });
 }; 

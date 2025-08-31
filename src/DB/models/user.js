@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
     },
+    role: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "role"
+    },
     createdBy: {
         type: String,
     },
@@ -29,6 +33,6 @@ const userSchema = new mongoose.Schema({
     },
 });
 
-export const userModel = mongoose.model("User", userSchema);
+export const userModel = mongoose.model("user", userSchema);
 
 
