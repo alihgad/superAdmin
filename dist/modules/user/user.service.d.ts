@@ -1,0 +1,11 @@
+export declare const createUser: (req: any, res: any, next: any) => Promise<any>;
+export declare const loginUser: (req: any, res: any, next: any) => Promise<any>;
+export declare const getAllUsers: (req: any, res: any, next: any) => Promise<any>;
+export declare const getUserById: (req: any, res: any, next: any) => Promise<any>;
+export declare const updateUser: (req: any, res: any, next: any) => Promise<any>;
+export declare const deleteUser: (req: any, res: any, next: any) => Promise<any>;
+export declare const getUserStats: (req: any, res: any, next: any) => Promise<any>;
+export declare const forgotPassword: (req: any, res: any, next: any) => Promise<any>;
+export declare const resetPassword: (req: any, res: any, next: any) => Promise<any>;
+export declare const changePassword: (req: any, res: any, next: any) => Promise<any>;
+//# sourceMappingURL=user.service.d.ts.map

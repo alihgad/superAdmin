@@ -1,0 +1,26 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const multer_1 = require("../../middlewares/multer");
+const ss = require("./section.service");
+const asyncHandler_1 = require("../../utils/asyncHandler");
+const validator_1 = require("../../middlewares/validator");
+const schemas = require("./section.schema");
+const sectionRouter = (0, express_1.Router)();
+sectionRouter.post("/slider/:page/:section", multer_1.default.single("image"), (0, validator_1.default)(schemas.createSliderSchema), (0, asyncHandler_1.default)(ss.createSlider));
+sectionRouter.put("/updateslider/:sliderId", multer_1.default.single("image"), (0, asyncHandler_1.default)(ss.updateSlider));
+sectionRouter.put("/slider/addtoslider/:sliderId", multer_1.default.single("image"), (0, validator_1.default)(schemas.createSliderSchema), (0, asyncHandler_1.default)(ss.addToSlider));
+sectionRouter.patch("/slider/updateoneslide/:page/:section/:slideId", multer_1.default.single("image"), (0, asyncHandler_1.default)(ss.updateSlide));
+sectionRouter.delete("/slider/:sliderId", (0, asyncHandler_1.default)(ss.deleteSlider));
+sectionRouter.delete("/slider/:page/:section/:slideId", (0, asyncHandler_1.default)(ss.deleteSlide));
+sectionRouter.get("/slider/:page", (0, asyncHandler_1.default)(ss.getAllSlider));
+sectionRouter.get("/slider/:page/:section", (0, asyncHandler_1.default)(ss.getSlider));
+sectionRouter.post("/:page/:section", multer_1.default.array("images"), (0, validator_1.default)(schemas.addSectionSchema), (0, asyncHandler_1.default)(ss.addSection));
+sectionRouter.put("/:page/:section", multer_1.default.array("images"), (0, asyncHandler_1.default)(ss.updateSection));
+sectionRouter.put("/images/:page/:section", multer_1.default.array("images"), (0, asyncHandler_1.default)(ss.addImagesToSection));
+sectionRouter.delete("/images/:page/:section/:imageId", (0, asyncHandler_1.default)(ss.removeImageFromSection));
+sectionRouter.get("/:page", (0, asyncHandler_1.default)(ss.getAllSections));
+sectionRouter.get("/:page/:section", (0, asyncHandler_1.default)(ss.getSection));
+sectionRouter.delete("/:page/:section", (0, asyncHandler_1.default)(ss.deleteSection));
+exports.default = sectionRouter;
+//# sourceMappingURL=section.controller.js.map

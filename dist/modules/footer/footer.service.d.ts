@@ -1,0 +1,10 @@
+export declare const addLink: (req: any, res: any) => Promise<any>;
+export declare const updateLink: (req: any, res: any) => Promise<any>;
+export declare const deleteLink: (req: any, res: any) => Promise<any>;
+export declare const getAllLinks: (req: any, res: any) => Promise<any>;
+export declare const getAllCatLinks: (req: any, res: any) => Promise<any>;
+export declare const addSocial: (req: any, res: any) => Promise<any>;
+export declare const updateSocial: (req: any, res: any) => Promise<any>;
+export declare const deleteSocial: (req: any, res: any) => Promise<any>;
+export declare const getAllSocial: (req: any, res: any) => Promise<any>;
+//# sourceMappingURL=footer.service.d.ts.map

@@ -1,0 +1,9 @@
+export declare const addBlog: (req: any, res: any, next: any) => Promise<any>;
+export declare const getAllBlogs: (req: any, res: any, next: any) => Promise<any>;
+export declare const getBlog: (req: any, res: any, next: any) => Promise<any>;
+export declare const updateBlogSection: (req: any, res: any, next: any) => Promise<any>;
+export declare const addBlogSection: (req: any, res: any, next: any) => Promise<any>;
+export declare const updateBlog: (req: any, res: any, next: any) => Promise<any>;
+export declare const deleteBlog: (req: any, res: any, next: any) => Promise<any>;
+export declare const deleteBlogSection: (req: any, res: any, next: any) => Promise<any>;
+//# sourceMappingURL=blog.service.d.ts.map
