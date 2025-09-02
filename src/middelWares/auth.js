@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
+import { userModel } from "../DB/models/user.js";
 
-export const auth = (req, res, next) => {
+export const auth = async (req, res, next) => {
     try {
         let token = req.headers.authorization;
         if (!token) {
@@ -14,11 +15,14 @@ export const auth = (req, res, next) => {
         }
 
         
-        req.user = {
-            userId: decoded.userId,
-            email: decoded.email,
-            role: decoded.role
-        };
+        let user = await userModel.findById(decoded.userId).select("-password");
+
+        if(!user) {
+            return res.status(401).json({ message: "غير مصرح - user غير موجود" });
+        }
+
+        req.user = user;
+
 
         next();
     } catch (error) {
