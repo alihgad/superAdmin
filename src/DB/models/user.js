@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
         ref: "role"
     },
     createdBy: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
     },
     resetPasswordToken: {
         type: String,
