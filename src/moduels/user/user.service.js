@@ -2,9 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { userModel } from "../../DB/models/user.js";
-import asyncHandler from "../../utils/asyncHandler.js";
 import { sendResetPasswordEmail, sendWelcomeEmail, sendPasswordChangedEmail } from "../../utils/emailService.js";
-
 
 export const createUser = async (req, res, next) => {
     const { email, password, name, role } = req.body;
@@ -21,17 +19,17 @@ export const createUser = async (req, res, next) => {
         email,
         password: hashedPassword,
         role,
-        createdBy: req.user?.userId || "system"
+        createdBy: req.user?.userId
     });
 
     const userWithoutPassword = user.toObject();
     delete userWithoutPassword.password;
 
-    // try {
-    //     await sendWelcomeEmail(email, name);
-    // } catch (error) {
-    //     console.error("Error sending welcome email:", error);
-    // }
+    try {
+        await sendWelcomeEmail(email, name);
+    } catch (error) {
+        console.error("Error sending welcome email:", error);
+    }
 
     return res.status(201).json({
         message: "User created successfully",
