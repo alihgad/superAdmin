@@ -29,7 +29,10 @@ export const updateSection = async (req, res, next) => {
                 await cloudinary.uploader.destroy(image.public_id).catch(err => next(new Error("Image deletion failed " + err.message + "")))
             }
         }
+
         section.images = []
+
+        console.log(req.files)
 
         for (const image of req.files) {
             let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
