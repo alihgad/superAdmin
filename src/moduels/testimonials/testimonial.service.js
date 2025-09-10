@@ -8,7 +8,8 @@ export async function createTestimonial(req, res) {
   let image;
   if(req.file){
     let {public_id, secure_url} = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'superAdmin/testimonials'
+      folder: 'superAdmin/testimonials',
+      resource_type: "auto"
     })
     image = {public_id, secure_url}
   }
@@ -34,7 +35,8 @@ export async function updateTestimonial(req, res, next) {
       await cloudinary.uploader.destroy(testimonial.image.public_id).catch(err => console.log(err));
     }
     let {public_id, secure_url} = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'superAdmin/testimonials'
+      folder: 'superAdmin/testimonials',
+      resource_type: "auto"
     }).catch(err => console.log(err));
     img = {public_id, secure_url}
   }

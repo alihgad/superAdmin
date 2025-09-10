@@ -9,7 +9,7 @@ let newData ={}
     let uploadImage = async () => {
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.image[0].path, {
             folder: `superAdmin/blogs`,
-            resource_type: "image"
+            resource_type: "auto"
         }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
             statusCode: 500,
             message: error.message
@@ -176,7 +176,7 @@ export const updateBlog = async (req, res, next) => {
 
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
             folder: `superAdmin/blog`,
-            resource_type: "image"
+            resource_type: "auto"
         }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
             statusCode: 500,
             message: error.message

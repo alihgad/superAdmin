@@ -7,7 +7,7 @@ export const addArticle = async (req, res, next) => {
     let uploadImage = async () => {
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.image[0].path, {
             folder: `superAdmin/help/articles/${article}`,
-            resource_type: "image"
+            resource_type: "auto"
         }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
             statusCode: 500,
             message: error.message
@@ -22,7 +22,7 @@ export const addArticle = async (req, res, next) => {
     let uploadCover = async () => {
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.cover[0].path, {
             folder: `superAdmin/help/articles/${article}`,
-            resource_type: "image"
+            resource_type: "auto"
         }).catch((error) => next(new Error("Cover upload failed " + error.message + ""), {
             statusCode: 500,
             message: error.message
@@ -55,7 +55,7 @@ export const addArticle = async (req, res, next) => {
 
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.vedio[0].path, {
             folder: `superAdmin/help/articles/${article}`,
-            resource_type: "video"
+            resource_type: "auto"
         }).catch((error) => next(new Error("Vedio upload failed " + error.message + ""), 500));
 
         return {
@@ -189,7 +189,7 @@ export const updateArticle = async (req, res, next) => {
 
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.image[0].path, {
             folder: `superAdmin/help/articles/${articleToUpdate.article}`,
-            resource_type: "image"
+            resource_type: "auto"
         }).catch((error) => next(new Error("Image upload failed " + error.message + ""), {
             statusCode: 500,
             message: error.message
@@ -213,7 +213,7 @@ export const updateArticle = async (req, res, next) => {
 
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.cover[0].path, {
             folder: `superAdmin/help/articles/${articleToUpdate.article}`,
-            resource_type: "image"
+            resource_type: "auto"
         }).catch((error) => next(new Error("Cover upload failed " + error.message + ""), {
             statusCode: 500,
             message: error.message
@@ -237,7 +237,7 @@ export const updateArticle = async (req, res, next) => {
 
         let { public_id, secure_url } = await cloudinary.uploader.upload(req.files.vedio[0].path, {
             folder: `superAdmin/help/articles/${articleToUpdate.article}`,
-            resource_type: "vedio"
+            resource_type: "auto"
         }).catch((error) => next(new Error("vedio upload failed " + error.message + ""), {
             statusCode: 500,
             message: error.message

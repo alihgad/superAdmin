@@ -36,7 +36,8 @@ export const updateSection = async (req, res, next) => {
 
         for (const image of req.files) {
             let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
-                folder: `superAdmin/${req.params.page}/${req.params.section}`
+                folder: `superAdmin/${req.params.page}/${req.params.section}`,
+                resource_type: "auto"
             })
             section.images.push({
                 public_id,
@@ -60,7 +61,8 @@ export const addImagesToSection = async (req, res, next) => {
     }
     for (const image of images) {
         let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
-            folder: `superAdmin/${req.params.page}/${req.params.section}`
+            folder: `superAdmin/${req.params.page}/${req.params.section}`,
+            resource_type: "auto"
         })
         section.images.push({
             public_id,
@@ -100,7 +102,8 @@ export const addSection = async (req, res, next) => {
     if (images.length > 0) {
         for (const image of images) {
             let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
-                folder: `superAdmin/${req.params.page}/${req.params.section}`
+                folder: `superAdmin/${req.params.page}/${req.params.section}`,
+                resource_type: "auto"
             })
             imagesData.push({
                 public_id,
@@ -203,7 +206,8 @@ export let createSlider = async (req, res, next) => {
 
         if (image) {
             let data = await cloudinary.uploader.upload(image.path, {
-                folder: `superAdmin/${req.params.page}/${req.params.section}/slider`
+                folder: `superAdmin/${req.params.page}/${req.params.section}/slider`,
+                resource_type: "auto"
             })
             secure_url = data.secure_url
             public_id = data.public_id
@@ -287,7 +291,8 @@ export let addToSlider = async (req, res, next) => {
 
     if (image) {
         let data = await cloudinary.uploader.upload(image.path, {
-            folder: `superAdmin/${slider.page}/${slider.section}/slider`
+            folder: `superAdmin/${slider.page}/${slider.section}/slider`,
+            resource_type: "auto"
         })
 
         secure_url = data.secure_url
@@ -343,7 +348,8 @@ export let updateSlide = async (req, res, next) => {
         }
 
         let { secure_url, public_id } = await cloudinary.uploader.upload(image.path, {
-            folder: `superAdmin/${slider.page}/${slider.section}/slider`
+            folder: `superAdmin/${slider.page}/${slider.section}/slider`,
+            resource_type: "auto"
         })
 
         target.image = {
