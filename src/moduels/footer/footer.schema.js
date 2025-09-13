@@ -147,12 +147,10 @@ export const addSocialSchema = {
 export const updateSocialSchema = {
     body: Joi.object({
         link: Joi.string()
-            .uri()
             .trim()
             .lowercase()
             .messages({
-                'string.base': 'Link must be a string',
-                'string.uri': 'Link must be a valid URL',
+                'string.base': 'Link must be a string'
             }),
 
         icon: Joi.string()
