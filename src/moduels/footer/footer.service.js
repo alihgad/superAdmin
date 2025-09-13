@@ -2,7 +2,7 @@ import footerModel from "../../DB/models/footer.js";
 import socialModel from "../../DB/models/socialMedia.js";
 import isHttpUrl from "../../utils/isUrl.js";
 
-export const addLink = async (req, res) => {
+export const addLink = async (req, res , next) => {
 
     const { link, arabic, english } = req.body;
     let { category } = req.params;
@@ -36,7 +36,7 @@ console.log(arabic.title)
     return res.status(201).json({ message: "Link added successfully", newLink });
 }
 
-export const updateLink = async (req, res) => {
+export const updateLink = async (req, res ,next) => {
     let { id } = req.params;
     const { link, arabic, english, category } = req.body;
 
@@ -54,7 +54,7 @@ export const updateLink = async (req, res) => {
     return res.status(200).json({ message: "Link updated successfully", updatetLink });
 }
 
-export const deleteLink = async (req, res) => {
+export const deleteLink = async (req, res , next) => {
     let { id } = req.params;
 
     let deletedLink = await footerModel.findByIdAndDelete(id);
@@ -64,7 +64,7 @@ export const deleteLink = async (req, res) => {
     return res.status(200).json({ message: "Link deleted successfully", deletedLink });
 }
 
-export const getAllLinks = async (req, res) => {
+export const getAllLinks = async (req, res , next) => {
     let links = await footerModel.find();
     if (!links || links.length === 0) {
         return res.status(404).json({ message: "No links found" });
@@ -72,7 +72,7 @@ export const getAllLinks = async (req, res) => {
     return res.status(200).json({ message: "Links retrieved successfully", links });
 }
 
-export const getAllCatLinks = async (req, res) => {
+export const getAllCatLinks = async (req, res , next) => {
     let { category } = req.params;
     let links = await footerModel.find({ category: category });
     if (!links || links.length === 0) {
@@ -82,7 +82,7 @@ export const getAllCatLinks = async (req, res) => {
 }
 
 
-export const addSocial = async (req, res) => {
+export const addSocial = async (req, res , next) => {
     let { link, icon } = req.body;
 
     let existingSocial = await socialModel.findOne({ icon: icon.trim() });
@@ -98,7 +98,7 @@ export const addSocial = async (req, res) => {
     return res.status(201).json({ message: "Social link added successfully", newSocial });
 }
 
-export const updateSocial = async (req, res) => {
+export const updateSocial = async (req, res , next) => {
     let { id } = req.params;
     const { link, icon, display } = req.body;
 
@@ -110,7 +110,7 @@ export const updateSocial = async (req, res) => {
     if (link) updatedSocial.link = link.trim();
     if (icon) {
         let existingSocial = await socialModel.findOne({ icon: icon.trim() });
-        if (existingSocial) {
+        if (existingSocial && existingSocial._id.toString() !== id) {
             return res.status(400).json({ message: "Social link already exists" });
         }
         updatedSocial.icon = icon.trim();
